@@ -1,0 +1,24 @@
+version: "3"
+services:
+  avaliacao_supervisao_php:
+    container_name: avaliacao_supervisao_php
+    build:
+      context: "./.docker"
+      dockerfile: Dockerfile
+    ports:
+      - "9001:9000" # fpm
+      - "5173:5173" # vite
+    volumes:
+      - "./.:/var/www/html"
+
+  avaliacao_supervisao_http:
+    container_name: avaliacao_supervisao_http
+    image: nginx
+    ports:
+      - "8189:80" # http
+    volumes:
+      - "./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./.docker/nginx/http.conf:/etc/nginx/conf.d/default.conf"
+      - "./.:/var/www/html"
+    depends_on:
+      - "avaliacao_supervisao_php"
