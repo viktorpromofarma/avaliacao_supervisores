@@ -23,6 +23,6 @@ Route::get('/first-access/{id}', [FirstAccess::class, '__invoke'])->name('first-
 Route::post('/create-account', [CreateAccount::class, 'store'])->name('create-account');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

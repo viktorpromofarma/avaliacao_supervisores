@@ -28,6 +28,7 @@ class loginController extends Controller
         if (!$user || Hash::check($credentials['password'], $user->password)) {
             return back()->with('error', 'Usuário ou senha inválidos');
         }
+
         Auth::login($user);
         $request->session()->regenerate();
         session(['username' => $user->username]);
@@ -43,7 +44,6 @@ class loginController extends Controller
 
         return redirect()->route('login');
     }
-
 
     public function VerifySeller($seller)
     {
