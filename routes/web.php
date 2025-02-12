@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Authentication\FirstAccess;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\CreateAccount;
+use App\Http\Controllers\Question\Questions;
 
 
 Route::get('/login', function () {
@@ -25,4 +26,5 @@ Route::post('/create-account', [CreateAccount::class, 'store'])->name('create-ac
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/questions', [Questions::class, '__invoke'])->name('questions');
 });
