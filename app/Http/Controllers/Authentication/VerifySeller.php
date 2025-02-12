@@ -11,15 +11,10 @@ class VerifySeller extends VerifyUsers
     public function getRegister($seller)
     {
 
-        $Sellers = $this->getSeller($seller);
-        $Users = $this->getUser($seller);
+        $existUser = $this->getExistUser($seller);
 
 
 
-        if ($Sellers != $Users) {
-            return false;
-        } else {
-            return true;
-        }
+        return $existUser;
     }
 }

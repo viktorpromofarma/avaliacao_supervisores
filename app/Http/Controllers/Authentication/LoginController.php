@@ -5,39 +5,41 @@ namespace App\Http\Controllers\Authentication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class loginController extends Controller
 {
     public function auth(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required|integer|min:1',
-            'password' => 'required|string',
+            'username' => 'required|string|min:1',
+            'password' => 'required|string|min:8',
         ]);
 
         $verifySeller = $this->VerifySeller($credentials['username']);
 
-        if ($verifySeller == true) {
+        if ($verifySeller == false && $credentials['password'] == 'promofarma') {
             return redirect()->route('first-access', ['id' => $credentials['username']]);
         }
 
+        $user = User::where('username', $credentials['username'])->first();
 
-        if (!Auth::attempt($credentials)) {
-            return back()
-                ->withErrors([
-                    'email' => 'Não foi possível fazer login com essas credenciais.'
-                ])
-                ->withInput(['email']);
+        if (!$user || Hash::check($credentials['password'], $user->password)) {
+            return back()->with('error', 'Usuário ou senha inválidos');
         }
-        return redirect('home'); // to_route
+        Auth::login($user);
+        $request->session()->regenerate();
+        session(['username' => $user->username]);
+        return redirect('home');
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        session()->forget('username');
 
         return redirect()->route('login');
     }
@@ -45,7 +47,6 @@ class loginController extends Controller
 
     public function VerifySeller($seller)
     {
-
         return (new VerifySeller())->getRegister($seller);
     }
 }
