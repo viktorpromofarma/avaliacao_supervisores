@@ -10,7 +10,7 @@
     </x-navigation.fieldset>
 
     <x-modals.confirmation action="closeConfirmation()" description="Deseja realizar a avaliação?"
-        confirmationText="Sim, desejo." denialText="Cancelar" route="{{ route('questions') }}" />
+        confirmationText="Sim, desejo." denialText="Não, cancele." route="{{ route('questions') }}" />
 
 </x-mains.app>
 
