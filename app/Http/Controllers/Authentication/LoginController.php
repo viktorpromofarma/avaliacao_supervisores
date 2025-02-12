@@ -15,6 +15,12 @@ class loginController extends Controller
         $credentials = $request->validate([
             'username' => 'required|string|min:1',
             'password' => 'required|string|min:8',
+        ], [
+            'username.required' => 'O campo nome de usuário é obrigatório.',
+            'username.string' => 'O nome de usuário deve ser uma string.',
+            'password.required' => 'O campo senha é obrigatório.',
+            'password.string' => 'A senha deve ser uma string.',
+            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
         ]);
 
         $verifySeller = $this->VerifySeller($credentials['username']);

@@ -28,8 +28,7 @@
                     readonly hidden>
                 <!-- Matrícula -->
                 <div class="mt-4">
-                    <x-inputs.label for="username" text="Seu Usuário (Sem Espaços)"
-                        class="block font-bold text-gray-700" />
+                    <x-inputs.label for="username" text="Seu Usuário" class="block font-bold text-gray-700" />
                     <x-inputs.input id="username" name="username" type="text" placeholder="" />
                 </div>
 

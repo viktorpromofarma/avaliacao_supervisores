@@ -27,6 +27,17 @@ class CreateAccount extends VerifyUsers
             'name'      => 'required|string|min:6',
             'password'  => 'required|string|min:6',
             'confirm_password' => 'required|string|min:8|same:password',
+        ], [
+            'username.required' => 'O campo nome de usuário é obrigatório.',
+            'username.min' => 'O nome de usuário deve ter pelo menos 6 caracteres.',
+            'name.required' => 'O campo nome é obrigatório.',
+            'name.min' => 'O nome deve ter pelo menos 6 caracteres.',
+            'password.required' => 'O campo senha é obrigatório.',
+            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'confirm_password.required' => 'O campo confirmar senha é obrigatório.',
+            'confirm_password.min' => 'A confirmar senha deve ter pelo menos 8 caracteres.',
+            'confirm_password.same' => 'A senha e a confirmar senha devem ser iguais.',
+            'regex' => 'O campo usuario tem um formato inválido.',
         ]);
 
         User::firstORCreate([
