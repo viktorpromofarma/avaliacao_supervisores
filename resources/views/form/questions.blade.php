@@ -74,9 +74,10 @@ foreach ($questoes as $questao) {
                     @endforeach
                 </fieldset>
             @endforeach
-
-            <button type="submit" class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">Enviar
-                respostas</button>
+            <div class="flex justify-center">
+                <button type="submit" class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">Enviar
+                    respostas</button>
+            </div>
         </form>
     </div>
 </x-mains.app>
