@@ -34,6 +34,15 @@
                     <x-inputs.label for="password" text="Sua Senha" class="block font-bold text-gray-700" />
                     <x-inputs.input id="password" name="password" type="password" placeholder="" />
                 </div>
+
+
+
+                <!-- Botão de Login -->
+
+                <div class="mt-4 text-center">
+                    <x-inputs.button type="submit" text="Acessar sua conta" textColor="white"
+                        backgroundColor="#E2304E" />
+                </div>
                 <!-- Esqueci a senha -->
                 <div class="mt-4 text-center">
                     <div class="relative group">
@@ -48,14 +57,6 @@
                             Clique aqui para abrir um chamado e recuperar sua senha.
                         </div>
                     </div>
-                </div>
-
-
-                <!-- Botão de Login -->
-
-                <div class="mt-4 text-center">
-                    <x-inputs.button type="submit" text="Acessar sua conta" textColor="white"
-                        backgroundColor="#E2304E" />
                 </div>
             </form>
         </div>

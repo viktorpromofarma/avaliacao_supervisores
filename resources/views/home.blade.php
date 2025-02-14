@@ -1,7 +1,7 @@
 <x-mains.navigation />
 <x-mains.app>
 
-    <div style="margin-top: 5%; ">
+    <div style="margin-top: 12%; ">
 
         <x-navigation.fieldset
             legend="{{ $roules == 'gerente'
