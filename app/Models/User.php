@@ -44,11 +44,4 @@ class User extends Authenticatable
     {
         return 'username';
     }
-
-    protected function password(): Attribute
-    {
-        return Attribute::get(function ($value, $attrib) {
-            return Hash::make($value);
-        });
-    }
 }
