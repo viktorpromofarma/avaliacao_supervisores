@@ -4,9 +4,10 @@
     'icon' => null,
 ])
 
-<div class="flex flex-col items-center justify-center px-6 py-4">
+
+<div class="mx-4 mt-4 mb-6 text-center">
     <button onclick="{{ $action }}"> {!! $icon !!}
-        <h1 class="mt-3 text-lg font-bold card-title">{{ $description }}</h1>
+        <h1 class="mt-3 font-bold text-md card-title">{{ $description }}</h1>
     </button>
     </a>
 </div>
