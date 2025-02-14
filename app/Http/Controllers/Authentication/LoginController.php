@@ -25,13 +25,14 @@ class loginController extends Controller
 
         $verifySeller = $this->VerifySeller($credentials['username']);
 
-        if ($verifySeller == false && $credentials['password'] == 'promofarma') {
+        if ($verifySeller == true && $credentials['password'] == 'promofarma') {
             return redirect()->route('first-access', ['id' => $credentials['username']]);
         }
 
         $user = User::where('username', $credentials['username'])->first();
 
-        if (!$user || Hash::check($credentials['password'], $user->password)) {
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+
             return back()->with('error', 'Usuário ou senha inválidos');
         }
 

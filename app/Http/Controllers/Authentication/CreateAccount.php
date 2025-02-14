@@ -14,8 +14,11 @@ class CreateAccount extends VerifyUsers
     public function store(Request $request)
     {
 
+        $registerValidation = $this->getSellerProcfit($request->id);
 
-
+        if (!$registerValidation) {
+            return back()->with('error', 'Matrícula inválida. Tente novamente');
+        }
 
         $request->merge([
             'password' => trim($request->input('password')),
@@ -44,14 +47,15 @@ class CreateAccount extends VerifyUsers
             'username' => $credentials['username'],
             'password' => Hash::make($credentials['password']),
             'display_name' => $credentials['name'],
-            'seller' => $request->id
+            'seller' => $request->id,
+
         ]);
 
         return redirect()->route('login');
     }
 
-    public function getSeller($seller)
+    public function getSellerProcfit($seller)
     {
-        return parent::getSeller($seller);
+        return parent::getSellerProcfit($seller);
     }
 }
