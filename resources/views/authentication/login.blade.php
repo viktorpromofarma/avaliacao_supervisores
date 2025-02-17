@@ -19,7 +19,6 @@
                 <h2 class="m-4 mb-2 text-2xl font-bold text-gray-800">
                     {{ env('APP_NAME') }}
                 </h2>
-
                 <p class="mb-6 font-bold text-gray-600">Faça o login aqui.</p>
             </div>
             <form action="{{ route('login.auth') }}" method="POST" class="space-y-4">
@@ -27,30 +26,27 @@
                 <!-- Matrícula -->
                 <div class="mt-4">
                     <x-inputs.label for="username" text="Seu Usuário" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="username" name="username" type="text" placeholder="" />
+                    <x-inputs.input id="username" name="username" type="text" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " requirido="true" />
                 </div>
                 <!-- Senha -->
                 <div class="mt-4">
                     <x-inputs.label for="password" text="Sua Senha" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="password" name="password" type="password" placeholder="" />
+                    <x-inputs.input id="password" name="password" type="password" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                 </div>
-
-
-
                 <!-- Botão de Login -->
-
                 <div class="mt-4 text-center">
                     <x-inputs.button type="submit" text="Acessar sua conta" textColor="white"
                         backgroundColor="#E2304E" />
                 </div>
                 <!-- Esqueci a senha -->
-                <div class="mt-4 text-center">
+                <div class="mt-2 text-center">
                     <div class="relative group">
                         <!-- Link com o texto "Esqueceu a senha?" -->
                         <a href="http://app.promofarma.int/helpdesk/" class="font-bold text-red-500" target="_blank">
                             Esqueceu a senha ?
                         </a>
-
                         <!-- Tooltip que aparece ao passar o mouse -->
                         <div
                             class="absolute invisible px-3 py-2 mb-2 text-sm text-white transition-opacity duration-300 transform -translate-x-1/2 bg-gray-800 rounded opacity-0 bottom-full left-1/2 group-hover:opacity-100 group-hover:visible">

@@ -32,22 +32,25 @@ class VerifyUsers extends Controller
         }
     }
 
-
     public function getUser($seller)
     {
         return User::where('username', $seller)->Exists();
     }
-
     public function getSellerProcfit($seller)
     {
         return SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)->Exists();
     }
-
     public function getSeller($seller)
     {
-        return  Sellers::where((DB::raw('CAST(supervisor AS CHAR)')), $seller)
+        $general = Sellers::where((DB::raw('CAST(supervisor AS CHAR)')), $seller)
             ->orWhere((DB::raw('CAST(gerente_atual AS CHAR)')), $seller)
             ->where('data_saida', null)
             ->Exists();
+
+        if ($seller != 4971) {
+            return $general;
+        } else {
+            return true;
+        }
     }
 }

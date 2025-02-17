@@ -11,9 +11,6 @@ class Questions extends Controller
 {
     public function __invoke()
     {
-
-
-
         return view('form.questions', ['user' => Auth::user()]);
     }
 }
