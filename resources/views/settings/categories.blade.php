@@ -8,7 +8,7 @@
             @csrf
 
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold">Cadastrar Questões</legend>
+                <legend class="text-2xl font-bold">Cadastrar Categorias</legend>
 
                 <div class="grid grid-cols-1 gap-4">
                     <div class="mb-2">
@@ -19,10 +19,10 @@
                     </div>
 
 
-                    <div class="flex justify-center">
+                    <div class="flex justify-start">
                         <button type="submit"
                             class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
-                            Cadastrar questão <i class="fa-solid fa-check"></i>
+                            Salvar <i class="fa-solid fa-check"></i>
                         </button>
                     </div>
 
@@ -31,7 +31,7 @@
 
         <!-- Tabela -->
         <fieldset class="w-full max-w-2xl p-4 bg-white border border-red-500 rounded-lg shadow-md">
-            <legend class="text-2xl font-bold ">Questões Cadastradas</legend>
+            <legend class="text-2xl font-bold ">Categorias Cadastradas</legend>
             <div class="flex justify-center mt-4 bg-white border border-gray-200 rounded-lg">
                 <table class="w-full text-center">
                     <thead class="bg-gray-100"> <!-- Adicionado background -->

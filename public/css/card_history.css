@@ -1,0 +1,17 @@
+.card-container {
+    align-items: center;
+    text-align: center;
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #e2304e;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -8,7 +8,9 @@ use App\Http\Controllers\Settings\Period;
 use App\Http\Controllers\Data\SaveAnswers;
 use App\Http\Controllers\Question\Questions;
 use App\Http\Controllers\Settings\Categories;
+use App\Http\Controllers\Manager\Feedback_History;
 use App\Http\Controllers\Authentication\FirstAccess;
+use App\Http\Controllers\Manager\Evaluation_History;
 use App\Http\Controllers\Authentication\CreateAccount;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
@@ -40,4 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/settings/questions', [QuestionsSettings::class, 'index'])->name('settings.questions');
     Route::post('/settings/questions/create', [QuestionsSettings::class, 'store'])->name('settings.questions.store');
+
+
+    Route::get('/admin/evaluation-history', [Evaluation_History::class, 'index'])->name('admin.evaluation_history');
+    Route::get('/admin/feedback-history', [Feedback_History::class, 'index'])->name('admin.feedback_history');
 });

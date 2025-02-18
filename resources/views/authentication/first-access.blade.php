@@ -29,25 +29,29 @@
                 <!-- Matrícula -->
                 <div class="mt-4">
                     <x-inputs.label for="username" text="Seu Usuário" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="username" name="username" type="text" placeholder="" />
+                    <x-inputs.input id="username" name="username" type="text" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                 </div>
 
                 <!-- Nome -->
                 <div class="mt-4">
                     <x-inputs.label for="name" text="Nome no sistema" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="name" name="name" type="text" placeholder="" />
+                    <x-inputs.input id="name" name="name" type="text" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                 </div>
                 <!-- Senha -->
                 <div class="mt-4">
                     <x-inputs.label for="password" text="Sua Senha" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="password" name="password" type="password" placeholder="" />
+                    <x-inputs.input id="password" name="password" type="password" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                 </div>
 
                 <!-- Senha -->
                 <div class="mt-4">
                     <x-inputs.label for="confirm_password" text="Confirme a senha"
                         class="block font-bold text-gray-700" />
-                    <x-inputs.input id="confirm_password" name="confirm_password" type="password" placeholder="" />
+                    <x-inputs.input id="confirm_password" name="confirm_password" type="password" placeholder=""
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                 </div>
                 <!-- Botão de Login -->
                 <div class="mt-4 text-center">

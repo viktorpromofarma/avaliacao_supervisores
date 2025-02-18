@@ -8,9 +8,21 @@
             @csrf
 
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold">Cadastrar Categorias</legend>
+                <legend class="text-2xl font-bold">Cadastrar Questões</legend>
 
                 <div class="grid grid-cols-1 gap-4">
+                    <div class="mb-2">
+                        <x-inputs.label for="category" text="Categoria" class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.select id="category" name="category"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="1">Teste 1</option>
+                            <option value="2">Teste 2 </option>
+                            <option value="3">Teste 3 </option>
+                            <option value="4">Teste 4</option>
+                            <option value="5">Teste 5</option>
+                        </x-inputs.select>
+                    </div>
+
                     <div class="mb-2">
                         <x-inputs.label for="description" text="Descrição"
                             class="block text-xl font-bold text-gray-700" />
@@ -21,27 +33,27 @@
                     <div class="mb-2">
                         <x-inputs.label for="type" text="Tipo da questão"
                             class="block text-xl font-bold text-gray-700" />
-                        <div class="grid items-center grid-cols-1 space-x-4 ">
 
-
-                            <div class="flex items-center gap-2 mt-2">
+                        <div class="flex flex-col gap-2 mt-2">
+                            <!-- Opção 1 -->
+                            <label class="flex items-center gap-2">
                                 <x-inputs.radio type="radio" id="multiple_choice" name="type"
                                     value="multiple_choice" class="text-red-500 form-radio" />
-                                <x-inputs.label for="multiple_choice" text="Múltipla escolha"
-                                    class="block font-bold text-gray-700" />
+                                <span class="font-bold text-gray-700">Múltipla escolha</span>
+                            </label>
 
-                                <x-inputs.input id="num_choices" name="num_choices" type="number" min="1"
-                                    class="hidden w-20 px-2 py-1 border border-gray-300 rounded-md" />
-                            </div>
+                            <x-inputs.input id="num_choices" name="num_choices" type="number" min="1"
+                                class="hidden w-20 px-2 py-1 border border-gray-300 rounded-md" />
 
-                            <div class="flex items-center mt-2 ">
+                            <!-- Opção 2 -->
+                            <label class="flex items-center gap-2">
                                 <x-inputs.radio type="radio" id="dissertativa" name="type" value="dissertativa"
                                     class="text-red-500 form-radio" />
-                                <x-inputs.label for="dissertativa" text="Dissertativa"
-                                    class="block ml-2 font-bold text-gray-700" />
-                            </div>
+                                <span class="font-bold text-gray-700">Dissertativa</span>
+                            </label>
                         </div>
                     </div>
+
                     <div class="flex justify-start">
                         <button type="submit"
                             class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
@@ -53,12 +65,13 @@
         </form>
 
         <!-- Tabela -->
-        <fieldset class="w-full max-w-2xl p-4 bg-white border border-red-500 rounded-lg shadow-md">
+        <fieldset class="w-full max-w-6xl p-4 bg-white border border-red-500 rounded-lg shadow-md">
             <legend class="text-2xl font-bold ">Questões Cadastradas</legend>
             <div class="flex justify-center mt-4 bg-white border border-gray-200 rounded-lg">
                 <table class="w-full text-center">
                     <thead class="bg-gray-100"> <!-- Adicionado background -->
                         <tr>
+                            <th class="px-4 py-2">Categoria</th>
                             <th class="px-4 py-2">Descrição</th>
                             <th class="px-4 py-2">Tipo</th>
                             <th class="px-4 py-2">Ações</th>
@@ -67,6 +80,8 @@
                     </thead>
                     <tbody>
                         <tr>
+
+                            <td class="px-4 py-2 font-bold">COMBATE A FRAUDES </td>
                             <td class="px-4 py-2 font-bold">O supervisor (a) te orientou a verificar relatórios de
                                 cupons cancelados no procfit? </td>
                             <td class="px-4 py-2 font-bold">Múltipla Escolha </td>
@@ -99,8 +114,8 @@
         choicesContainer.id = "choices-container";
         choicesContainer.className = "grid grid-cols-1 gap-1";
 
-        // Insere o container abaixo do campo num_choices
-        numChoicesInput.parentNode.insertAdjacentElement("afterend", choicesContainer);
+        // Insere o container antes do input de Dissertativa
+        dissertativaRadio.parentNode.parentNode.insertBefore(choicesContainer, dissertativaRadio.parentNode);
 
         function toggleNumberInput() {
             if (multipleChoiceRadio.checked) {
@@ -125,7 +140,7 @@
                 respostaInput.type = "text";
                 respostaInput.name = `respostas[]`;
                 respostaInput.placeholder = `Resposta ${i}`;
-                respostaInput.className = "w-full px-3 py-2 border border-gray-300 rounded-md mt-2";
+                respostaInput.className = "w-full px-3 py-2 border border-gray-300 rounded-md ";
 
                 // Input nota
                 const notaInput = document.createElement("input");
@@ -134,7 +149,7 @@
                 notaInput.min = "0";
                 notaInput.max = "10";
                 notaInput.placeholder = `Nota ${i}`;
-                notaInput.className = "w-20 px-3 py-2 border border-gray-300 rounded-md mt-2";
+                notaInput.className = "w-20 px-3 py-2 border border-gray-300 rounded-md";
 
                 div.appendChild(respostaInput);
                 div.appendChild(notaInput);
