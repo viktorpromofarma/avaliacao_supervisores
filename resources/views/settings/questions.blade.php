@@ -68,25 +68,26 @@
         <fieldset class="w-full max-w-6xl p-4 bg-white border border-red-500 rounded-lg shadow-md">
             <legend class="text-2xl font-bold ">Questões Cadastradas</legend>
             <div class="flex justify-center mt-4 bg-white border border-gray-200 rounded-lg">
-                <table class="w-full text-center">
-                    <thead class="bg-gray-100"> <!-- Adicionado background -->
+                <table class="w-full ">
+                    <thead class="text-center bg-gray-100"> <!-- Adicionado background -->
                         <tr>
-                            <th class="px-4 py-2">Categoria</th>
-                            <th class="px-4 py-2">Descrição</th>
-                            <th class="px-4 py-2">Tipo</th>
-                            <th class="px-4 py-2">Ações</th>
+                            <th class="px-4 py-2 ">Categoria</th>
+                            <th class="px-4 py-2 ">Descrição</th>
+                            <th class="px-4 py-2 ">Tipo</th>
+                            <th class="px-4 py-2 ">Ações</th>
                             <!-- Ocupa duas colunas -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
 
-                            <td class="px-4 py-2 font-bold">COMBATE A FRAUDES </td>
-                            <td class="px-4 py-2 font-bold">O supervisor (a) te orientou a verificar relatórios de
+                            <td class="px-4 py-2 font-bold text-center">COMBATE A FRAUDES </td>
+                            <td class="px-4 py-2 font-bold text-justify">O supervisor (a) te orientou a verificar
+                                relatórios de
                                 cupons cancelados no procfit? </td>
-                            <td class="px-4 py-2 font-bold">Múltipla Escolha </td>
+                            <td class="px-4 py-2 font-bold text-center">Múltipla Escolha </td>
 
-                            <td class="px-4 py-1">
+                            <td class="px-4 py-1 text-center">
                                 <button class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
                                     <a href="#" class="flex items-center gap-2 whitespace-nowrap">
                                         Excluir <i class="fa-solid fa-trash-can"></i>

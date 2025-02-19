@@ -20,8 +20,8 @@
                     description="Feedbacks Aplicados" />
             @elseif($roules == 'admin')
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                    <x-navigation.options route="#" icon="<i class='fa-solid fa-file-pen fa-4x'></i>"
-                        description="Gerar Feedback" />
+                    <x-navigation.options route="{{ route('admin.generate_feedback') }}"
+                        icon="<i class='fa-solid fa-file-pen fa-4x'></i>" description="Gerar Feedback" />
                     <x-navigation.options route="{{ route('admin.evaluation_history') }}"
                         icon="<i class='fa-solid fa-user-clock fa-4x'></i>" description="Histórico de avaliações" />
                     <x-navigation.options route="{{ route('admin.feedback_history') }}"
