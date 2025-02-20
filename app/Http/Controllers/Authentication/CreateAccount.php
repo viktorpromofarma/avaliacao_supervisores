@@ -8,6 +8,9 @@ use App\Http\Controllers\Verification\VerifyUsers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Monolog\Handler\IFTTTHandler;
+use Whoops\Exception\Formatter;
+
+use function Laravel\Prompts\form;
 
 class CreateAccount extends VerifyUsers
 {
@@ -48,6 +51,7 @@ class CreateAccount extends VerifyUsers
             'password' => Hash::make($credentials['password']),
             'display_name' => $credentials['name'],
             'seller' => $request->id,
+            'created_at' => date('d-m-Y'),
 
         ]);
 

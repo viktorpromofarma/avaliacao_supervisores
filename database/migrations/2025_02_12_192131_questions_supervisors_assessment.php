@@ -15,12 +15,13 @@ return new class extends Migration
         Schema::create('questions_supervisors_assessment', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description');
+            $table->integer('type_id');
+            $table->integer('category_id');
             $table->foreign('type_id')->references('id')->on('type_questions_supervisors_assessment');
             $table->foreign('category_id')->references('id')->on('category_questions_supervisors_assessment');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

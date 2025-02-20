@@ -28,7 +28,10 @@ class User extends Authenticatable
         'username',
         'password',
         'display_name',
-        'seller'
+        'seller',
+        'created_at',
+        'updated_at'
+
     ];
 
     /**
@@ -44,4 +47,5 @@ class User extends Authenticatable
     {
         return 'username';
     }
+    public $timestamps = false;
 }

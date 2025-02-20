@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sellers extends Model
 {
-    protected $table = 'vw_historico_gerentes';
+    protected $table = 'PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES';
 
     protected $fillable = [
         'supervisor',

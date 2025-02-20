@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SellersProcfit extends Model
 {
-    protected $table = 'LG_IMPORTA_FUNCIONARIOS';
+    protected $table = 'PBS_PROMOFARMA_DADOS.dbo.VW_FUNCIONARIOS_SUMARIZADO';
 
     protected $fillable = [
         'nome',

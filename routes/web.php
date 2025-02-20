@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Generate_Feedback;
 use App\Http\Controllers\Authentication\CreateAccount;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
+use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
 
 
 Route::get('/login', function () {
@@ -37,9 +38,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/settings', [Period::class, 'index'])->name('settings.period');
     Route::post('/settings/period', [Period::class, 'store'])->name('settings.period.store');
+    Route::delete('/settings/period/{id}', [Period::class, 'destroy'])->name('settings.period.destroy');
 
     Route::get('/settings/categories', [Categories::class, 'index'])->name('settings.categories');
     Route::post('/settings/categories/create', [Categories::class, 'store'])->name('settings.categories.store');
+    Route::delete('/settings/categories/{id}', [Categories::class, 'destroy'])->name('settings.categories.destroy');
+    Route::get('/settings/categories/{id}', [Categories::class, 'edit'])->name('settings.categories.edit');
+    Route::post('/settings/edit/categories', [EditCategories::class, 'update'])->name('settings.categories.update');
+
 
     Route::get('/settings/questions', [QuestionsSettings::class, 'index'])->name('settings.questions');
     Route::post('/settings/questions/create', [QuestionsSettings::class, 'store'])->name('settings.questions.store');
