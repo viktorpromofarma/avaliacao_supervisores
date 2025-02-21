@@ -18,7 +18,8 @@ class Categories extends Controller
     {
         try {
             CategoryModel::create([
-                'description' => $request->description
+                'description' => $request->description,
+                'created_at' => date('d-m-Y')
             ]);
 
             return back()->with('success', 'Categoria cadastrada com sucesso!');

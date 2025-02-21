@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/questions', [Questions::class, '__invoke'])->name('questions');
-    Route::post('/save-form', [SaveAnswers::class, 'store'])->name('save-form');
+    Route::post('/save-answers', [SaveAnswers::class, 'store'])->name('save-answers');
 
 
     Route::get('/settings', [Period::class, 'index'])->name('settings.period');

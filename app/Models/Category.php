@@ -11,6 +11,12 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'description',
     ];
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'category_id');
+    }
 }

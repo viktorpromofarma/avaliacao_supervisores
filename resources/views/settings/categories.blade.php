@@ -1,5 +1,6 @@
 <x-mains.navigation />
 <x-mains.app>
+
     <x-alerts.alertSucessError />
 
     <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
