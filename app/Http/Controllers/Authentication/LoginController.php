@@ -23,7 +23,10 @@ class loginController extends Controller
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
         ]);
 
+
         $verifySeller = $this->VerifySeller($credentials['username']);
+
+
 
         if ($verifySeller == true && $credentials['password'] == 'promofarma') {
             return redirect()->route('first-access', ['id' => $credentials['username']]);
@@ -31,7 +34,9 @@ class loginController extends Controller
 
         $user = User::where('username', $credentials['username'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+
+
+        if (!$user || !Hash::check($credentials['password'], $user->password) || $user->active == 'N') {
 
             return back()->with('error', 'Usuário ou senha inválidos');
         }

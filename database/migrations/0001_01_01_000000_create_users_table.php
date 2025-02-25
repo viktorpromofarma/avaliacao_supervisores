@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('display_name');
+            $table->string('active');
             $table->integer('seller')->unique();
             $table->string('password');
             $table->rememberToken();

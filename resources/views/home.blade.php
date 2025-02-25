@@ -1,7 +1,7 @@
 <x-mains.navigation />
 <x-mains.app>
 
-    <div class="mb-2 ml-2 mr-2" style="margin-top: {{ $roules == 'admin' ? '6%' : '8%' }}; ">
+    <div class="mb-4 ml-2 mr-2" style="margin-top: {{ $roules == 'admin' ? '4%' : '4%' }}; ">
         <x-navigation.fieldset
             legend="{{ $roules == 'gerente'
                 ? 'Área do Gerente'
@@ -9,19 +9,28 @@
                     ? 'Área do Supervisor'
                     : 'Área do Admin') }}">
             @if ($roules == 'gerente')
-                <x-navigation.buttomModal action="openConfirmation()" description="Realizar Avaliação"
-                    icon="<i class='fa-regular fa-pen-to-square fa-4x'></i>" />
+                @if ($statusAnswers == 'true')
+                    <div style='color: #4CAF50;'>
+                        <x-navigation.options route="{{ route('home') }}"
+                            icon="<i class='fa-solid fa-check-double fa-4x'></i>" description="Avaliação realizada" />
+                    </div>
+                @else
+                    <x-navigation.buttomModal action="openConfirmation()" description="Realizar Avaliação"
+                        icon="<i class='fa-regular fa-pen-to-square fa-4x'></i>" />
+                @endif
                 <x-navigation.options route="#" icon="<i class='fa-solid fa-file-circle-check fa-4x'></i>"
-                    description="Avaliações Realizadas" />
+                    description="Histórico de Avaliações" />
             @elseif ($roules == 'supervisor')
                 <x-navigation.options route="#" icon="<i class='fa-solid fa-chart-line fa-4x'></i>"
                     description="Notas de Avaliação" />
                 <x-navigation.options route="#" icon="<i class='fa-regular fa-comments fa-4x'></i>"
                     description="Feedbacks Aplicados" />
             @elseif($roules == 'admin')
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3">
                     <x-navigation.options route="{{ route('admin.generate_feedback') }}"
                         icon="<i class='fa-solid fa-file-pen fa-4x'></i>" description="Gerar Feedback" />
+                    <x-navigation.options route="#" icon="<i class='fa-solid fa-chart-line fa-4x'></i>"
+                        description="Médias de avaliação" />
                     <x-navigation.options route="{{ route('admin.evaluation_history') }}"
                         icon="<i class='fa-solid fa-user-clock fa-4x'></i>" description="Histórico de avaliações" />
                     <x-navigation.options route="{{ route('admin.feedback_history') }}"

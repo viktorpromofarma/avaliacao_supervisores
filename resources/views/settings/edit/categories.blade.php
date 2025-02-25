@@ -1,5 +1,6 @@
 <x-mains.navigation />
 <x-mains.app>
+
     <div class="fixed top-6 right-3 z-[1050]">
         <x-alerts.alertSucessError />
     </div>

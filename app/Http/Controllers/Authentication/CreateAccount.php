@@ -19,6 +19,8 @@ class CreateAccount extends VerifyUsers
 
         $registerValidation = $this->getSellerProcfit($request->id);
 
+
+
         if (!$registerValidation) {
             return back()->with('error', 'Matrícula inválida. Tente novamente');
         }
@@ -51,6 +53,7 @@ class CreateAccount extends VerifyUsers
             'password' => Hash::make($credentials['password']),
             'display_name' => $credentials['name'],
             'seller' => $request->id,
+            'active' => 'S',
             'created_at' => date('d-m-Y'),
 
         ]);

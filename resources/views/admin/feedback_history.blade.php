@@ -1,67 +1,64 @@
 <x-mains.navigation />
 <x-mains.app>
-    <div class="flex flex-row items-start mt-8 ml-4">
-        <!-- Formulário -->
-        <!-- Formulário -->
-        <form action="#" method="GET" class="sticky self-start w-full max-w-sm top-4">
-            @csrf
-            <fieldset class="p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold text-center">Historico de Feedbacks</legend>
-                <div class="grid grid-cols-1 gap-2">
-                    <div class="mb-2">
-                        <x-inputs.label for="semester" text="Semestres" class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.select name="semester" id="semester"
-                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md">
-                            <option value="" selected disabled>Selecione um semestre</option>
-                            <option value="1">1º Semestre</option>
-                            <option value="2">2º Semestre</option>
-                            <option value="3">Todos os Semestres</option>
-                        </x-inputs.select>
-                        <x-inputs.label for="store" text="Lojas" class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.input id="store" name="store" type="number" placeholder=""
-                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
-                        <x-inputs.label for="manager" text="Gerentes" class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.input id="manager" name="manager" type="text" placeholder=""
-                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
 
-                        <x-inputs.label for="quantity" text="Quantidade de Lojas"
+    <div style="margin-top: 2%;">
+        <x-filters.filterHistory route="{{ route('admin.feedback_history') }}" title="Histórico de Feedbacks">
+            <x-slot name="slot">
+                <div class="flex flex-row space-x-4">
+                    <div class="flex-1">
+                        <x-inputs.label for="storeStart" text="Loja Inicial"
                             class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.input id="quantity" name="quantity" type="text" placeholder=""
-                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" value="10" />
+                        <x-inputs.input id="storeStart" name="storeStart" type="number" placeholder=""
+                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
+                    </div>
+                    <div class="flex-1">
+                        <x-inputs.label for="storeEnd" text="Loja Final"
+                            class="block font-bold text-gray-700 text-md" />
+                        <x-inputs.input id="storeEnd" name="storeEnd" type="number" placeholder=""
+                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
                     </div>
                 </div>
-                <div class="flex justify-center">
-                    <button type="submit"
-                        class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700">Filtrar <i
-                            class="fa-solid fa-filter"></i>
-                    </button>
-
-                    <button type="button" onclick="limparGet()"
-                        class="px-4 py-2 mx-4 font-bold text-white bg-red-500 rounded hover:bg-red-700">
-                        Limpar <i class="fa-solid fa-broom"></i>
-                    </button>
-                </div>
-            </fieldset>
-        </form>
-
-        <!-- Section com os cards -->
-        <section class="flex-1 mx-4 mt-4 mb-4 ml-4">
-            <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 card-container">
-                <!-- Ajuste o grid conforme necessário -->
-                @for ($index = 1; $index <= 10; $index++)
-                    <div class="p-4 rounded-lg card" style="background-color: #e2304e; color: white;">
-                        <h1 class="text-2xl font-bold">Loja {{ $index }}</h1>
-                        <p class="font-bold">Fulano da silva santos.</p>
-                        <p class="font-bold">25/12/2025</p>
+                <div class="flex flex-row space-x-4">
+                    <div class="flex-1">
+                        <x-inputs.label for="month" text="Mês" class="block font-bold text-gray-700 text-md" />
+                        <x-inputs.input id="month" name="month" type="number" placeholder=""
+                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
                     </div>
-                @endfor
-        </section>
+                    <div class="flex-1">
+                        <x-inputs.label for="year" text="Ano" class="block font-bold text-gray-700 text-md" />
+                        <x-inputs.input id="year" name="year" type="number" placeholder=""
+                            class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
+                    </div>
+                </div>
+                <x-inputs.label for="manager" text="Gerente" class="block font-bold text-gray-700 text-md" />
+                <x-inputs.input id="manager" name="manager" type="text" placeholder="Nome ou matrícula"
+                    class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
+                <x-inputs.label for="supervisor" text="Supervisor" class="block font-bold text-gray-700 text-md" />
+                <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome ou matrícula"
+                    class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
+            </x-slot>
+
+            <x-slot name="table">
+                <div class="p-8 mt-6 mb-8 overflow-x-auto">
+                    <div class="overflow-y-auto rounded-lg max-h-96">
+                        <table class="min-w-full bg-white border shadow-md striped">
+                            <thead class="text-white bg-red-500">
+                                <tr>
+                                    <th class="px-4 py-2 text-xl text-center">Loja</th>
+                                    <th class="px-4 py-2 text-xl text-center">Data</th>
+                                    <th class="px-4 py-2 text-xl text-center">Supervisor</th>
+                                    <th class="px-4 py-2 text-xl text-center">Relatório</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </x-slot>
+        </x-filters.filterHistory>
     </div>
-
 </x-mains.app>
-<script>
-    function limparGet() {
-        // Redireciona para a mesma página sem os parâmetros GET
-        window.location.href = window.location.pathname;
-    }
-</script>
+<script src="{{ asset('js/limparGet.js') }}"></script>

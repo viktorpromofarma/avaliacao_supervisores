@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SaveUserAnswers extends Model
+class StatusUserAnswers extends Model
 {
-    protected $table = 'save_user_answers';
-
+    protected $table = 'status_user_answers';
 
     protected $fillable = [
-        'id',
         'user_id',
-        'question_id',
-        'answer_id',
-        'answer_text',
+        'supervisor',
+        'month',
+        'store',
+        'year',
         'created_at',
     ];
 

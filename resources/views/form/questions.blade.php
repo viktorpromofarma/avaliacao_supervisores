@@ -5,12 +5,12 @@
     <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
         <form action="{{ route('save-answers') }}" method="POST">
             @csrf
-            <input type="hidden" name="username" value="{{ $user->username }}">
-            <input type="hidden" name="seller" value="{{ $user->seller }}">
+
+            <input type="hidden" name="user_id" value="{{ $user->id }}">
 
             @foreach ($form_questions as $categoria)
                 <fieldset class="w-full max-w-2xl p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                    <legend class="mb-4 text-2xl font-bold">{{ $categoria['categoria'] }}</legend>
+                    <legend class="mb-4 text-2xl font-bold ">{{ $categoria['categoria'] }}</legend>
                     @foreach ($categoria['questoes'] as $questao)
                         <div class="mb-6">
                             <p class="mb-2 font-semibold">{{ $questao['questao'] }}</p>
@@ -31,12 +31,10 @@
                 </fieldset>
             @endforeach
 
-
-
-
             <div class="flex justify-center">
-                <button type="submit" class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">Enviar
-                    respostas</button>
+                <button type="submit"
+                    class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700">Finalizar
+                    avaliação</button>
             </div>
         </form>
     </div>

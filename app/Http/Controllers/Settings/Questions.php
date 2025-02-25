@@ -20,6 +20,8 @@ class Questions extends Controller
         // Questões cadastradas
         $questions = $this->getQuestions();
 
+
+
         return view(
             'settings.questions',
             [
@@ -69,21 +71,32 @@ class Questions extends Controller
 
     public function getQuestions()
     {
-        // Carregar questões com os relacionamentos 'type' e 'category'
+
         $questions = QuestionModel::with(['type', 'category'])->get();
 
-        // Mapear as questões e adicionar as descrições do tipo e da categoria
+
         $questionsWithDescriptions = $questions->map(function ($question) {
-            // Adicionando a descrição do tipo
+
             $question->type_description = $question->type->description;
 
-            // Adicionando a descrição da categoria
+
             $question->category_description = $question->category->description;
 
-            // Retorna a questão com as descrições adicionais
+
             return $question;
         });
 
         return $questionsWithDescriptions;
+    }
+
+    public function destroy($id)
+    {
+
+        try {
+            QuestionModel::where('id', $id)->delete();
+            return back()->with('success', 'Questão excluida com sucesso!');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Erro ao excluir questão!');
+        }
     }
 }

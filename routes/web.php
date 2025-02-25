@@ -9,10 +9,11 @@ use App\Http\Controllers\Data\SaveAnswers;
 use App\Http\Controllers\Question\Questions;
 use App\Http\Controllers\Settings\Categories;
 use App\Http\Controllers\Admin\Feedback_History;
-use App\Http\Controllers\Authentication\FirstAccess;
-use App\Http\Controllers\Admin\Evaluation_History;
 use App\Http\Controllers\Admin\Generate_Feedback;
+use App\Http\Controllers\Admin\Evaluation_History;
+use App\Http\Controllers\Authentication\FirstAccess;
 use App\Http\Controllers\Authentication\CreateAccount;
+use App\Http\Controllers\History\FilteredManagerReview;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
 use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
@@ -49,9 +50,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/settings/questions', [QuestionsSettings::class, 'index'])->name('settings.questions');
     Route::post('/settings/questions/create', [QuestionsSettings::class, 'store'])->name('settings.questions.store');
+    Route::delete('/settings/questions/{id}', [QuestionsSettings::class, 'destroy'])->name('settings.questions.destroy');
 
 
     Route::get('/admin/evaluation-history', [Evaluation_History::class, 'index'])->name('admin.evaluation_history');
     Route::get('/admin/feedback-history', [Feedback_History::class, 'index'])->name('admin.feedback_history');
     Route::get('/admin/generate-feedback', [Generate_Feedback::class, 'index'])->name('admin.generate_feedback');
+
+
+    Route::post('/reviews/manager', [FilteredManagerReview::class, 'index'])->name('reviews.my-reviews');
 });

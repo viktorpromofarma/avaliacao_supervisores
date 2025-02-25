@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Sellers;
+use App\Http\Controllers\Verification\StatusAnswers;
+
 
 class HomeController extends Controller
 {
@@ -13,8 +15,17 @@ class HomeController extends Controller
 
     public function index()
     {
+
+        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
+
+
         $roules = $this->getRoules();
-        return view('home', ['roules' => $roules]);
+        return view('home', [
+            'roules' => $roules,
+            'statusAnswers'    => $statusAnswers,
+            'user_id' => Auth::user()->id
+
+        ]);
     }
 
     public function getRoules()
@@ -26,5 +37,10 @@ class HomeController extends Controller
         } elseif (Auth::user()->seller == 4971) {
             return $this->roules = 'admin';
         };
+    }
+
+    public function getUserAnswersStatus($user_id)
+    {
+        return (new StatusAnswers())->getUserAnswersStatus($user_id);
     }
 }

@@ -1,5 +1,7 @@
 <x-mains.navigation />
 <x-mains.app>
+
+
     <?php
     $classificacoes = [
         1 => 'Combate a fraudes e custos',

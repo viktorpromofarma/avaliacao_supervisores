@@ -1,8 +1,10 @@
 <x-mains.navigation />
 <x-mains.app>
+
+
     <x-alerts.alertSucessError />
 
-    <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
+    <div class="flex flex-col items-center" style="margin-top: 3%; margin-bottom: 5%">
 
         <!-- Formulário -->
         <form action="{{ route('settings.questions.store') }}" method="POST" class="w-full max-w-2xl">
@@ -41,14 +43,12 @@
                                         name="type_question" value="{{ $typeQuestion->id }}"
                                         class="text-red-500 form-radio" />
                                     <span class="font-bold text-gray-700">{{ $typeQuestion->description }}</span>
+                                    <x-inputs.input id="num_choices" name="num_choices" type="number" min="1"
+                                        class="hidden w-20 px-1 py-1 border border-gray-300 rounded-md" required />
                                 </label>
-                                <x-inputs.input id="num_choices" name="num_choices" type="number" min="1"
-                                    class="hidden w-20 px-2 py-1 border border-gray-300 rounded-md" required />
                             @endforeach
-
-                            <!-- Opção 1 -->
-
                         </div>
+
                     </div>
 
                     <div class="flex justify-start">
@@ -81,15 +81,22 @@
                             <tr>
                                 <td class="px-4 py-2 font-bold text-center">{{ $question['category_description'] }}
                                 </td>
-                                <td class="px-4 py-2 font-bold text-center">{{ $question['description'] }} </td>
+                                <td class="px-4 py-2 font-bold text-justify">{{ $question['description'] }} </td>
                                 <td class="px-4 py-2 font-bold text-center">{{ $question['type_description'] }} </td>
 
-                                <td class="px-4 py-1 text-center">
-                                    <button class="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
-                                        <a href="#" class="flex items-center gap-2 whitespace-nowrap">
-                                            Excluir <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </button>
+                                <td class="px-4 py-2">
+                                    <div class="flex justify-center mt-4 space-x-4">
+                                        <form action="{{ route('settings.questions.destroy', $question['id']) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="inline-flex items-center px-6 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
+                                                Excluir <i class="ml-2 fa-solid fa-trash"></i>
+                                                <!-- Adiciona margem à esquerda do ícone -->
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

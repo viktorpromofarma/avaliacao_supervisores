@@ -1,9 +1,10 @@
 <x-mains.navigation />
 <x-mains.app>
 
+
     <x-alerts.alertSucessError />
 
-    <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
+    <div class="flex flex-col items-center" style="margin-top: 3%; margin-bottom: 5%">
 
         <!-- Formulário -->
         <form action="{{ route('settings.categories.store') }}" method="POST" class="w-full max-w-2xl">

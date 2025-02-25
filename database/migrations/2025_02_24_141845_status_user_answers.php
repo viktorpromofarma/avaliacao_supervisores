@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('save_user_answers', function (Blueprint $table) {
+        Schema::create('status_user_answers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('question_id');
-            $table->integer('answer_id')->nullable();
-            $table->string('answer_text')->nullable();
-            $table->foreign('question_id')->references('id')->on('questions_supervisors_assessment')->onDelete('cascade');
+            $table->integer('supervisor');
+            $table->integer('month');
+            $table->integer('year');
+            $table->integer('store');
             $table->foreign('user_id')->references('id')->on('usuarios_avaliacao_supervisao');
-
+            $table->foreign('supervisor')->references('id')->on('usuarios_avaliacao_supervisao');
             $table->timestamps();
         });
     }
@@ -29,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('save_user_answers')) {
-            Schema::dropIfExists('save_user_answers');
-        }
+        Schema::dropIfExists('status_user_answers');
     }
 };

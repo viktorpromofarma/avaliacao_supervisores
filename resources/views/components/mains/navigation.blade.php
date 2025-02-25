@@ -5,7 +5,7 @@
             <a href="{{ route('home') }}" class="flex items-center text-white hover:text-black">
                 <img src="{{ URL::asset('/imgs/índice2.png') }}" class="h-12" alt="Logo">
                 <span class="ml-2">Bem-Vindo(a),
-                    {{ ucfirst(strtolower(strstr(Auth::user()->display_name, ' ', true))) }}</span>
+                    {{ Auth::user()->display_name }}</span>
             </a>
         </div>
         <div class="flex items-center">
