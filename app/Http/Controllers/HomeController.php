@@ -15,15 +15,13 @@ class HomeController extends Controller
 
     public function index()
     {
-
-        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
-
+        $validationPeriodoAnswers = $this->validationPeriodoAnswers();
 
         $roules = $this->getRoules();
         return view('home', [
             'roules' => $roules,
-            'statusAnswers'    => $statusAnswers,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'validationPeriodoAnswers' => $validationPeriodoAnswers
 
         ]);
     }
@@ -42,5 +40,23 @@ class HomeController extends Controller
     public function getUserAnswersStatus($user_id)
     {
         return (new StatusAnswers())->getUserAnswersStatus($user_id);
+    }
+
+    public function getPeriod()
+    {
+        return (new StatusAnswers())->getPeriod();
+    }
+
+    public function validationPeriodoAnswers()
+    {
+
+        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
+        $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
+
+        if ($statusPeriod == null) {
+            return false;
+        } else {
+            return $statusAnswers;
+        }
     }
 }

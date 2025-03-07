@@ -17,8 +17,6 @@ class FilteredManagerReview extends ManagerReview
 
         $review = $this->getReview($request);
 
-
-
         return view('reviews.review', [
             'reviews' => $review,
             'userDatas' => $userData

@@ -4,7 +4,7 @@
     <div class="fixed top-6 right-3 z-[1050]">
         <x-alerts.alertSucessError />
     </div>
-    <div class="flex flex-col items-center "style="margin-top: 3%;">
+    <div class="flex flex-col items-center mb-6" style="margin-top: 3%;">
         <form action="{{ route('settings.period.store') }}" method="POST"> @csrf <fieldset
                 class="w-full max-w-2xl p-4 bg-white border border-red-500 rounded-lg shadow-md">
                 <legend class="text-2xl font-bold">Cadastrar Períodos</legend>

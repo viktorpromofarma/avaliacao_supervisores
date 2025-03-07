@@ -10,7 +10,7 @@
         <div class="flex flex-col">
             <form action="{{ $route }}" method="GET" class="w-full max-w-md " style="margin-top: 1%;">
                 @csrf
-                <fieldset class="p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
+                <fieldset class="p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md ">
                     <legend class="text-2xl font-bold text-center">{{ $title }}</legend>
                     <div class="grid grid-cols-1 gap-2">
                         <div class="mb-2">

@@ -15,6 +15,9 @@ use App\Http\Controllers\Authentication\FirstAccess;
 use App\Http\Controllers\Authentication\CreateAccount;
 use App\Http\Controllers\History\FilteredManagerReview;
 use App\Http\Controllers\Authentication\LoginController;
+use App\Http\Controllers\History\Average\SupervisorAverage;
+use App\Http\Controllers\History\Average\SupervisorAverageData;
+use App\Http\Controllers\History\Average\SupervisorAverageFilter;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
 use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
 
@@ -59,4 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::post('/reviews/manager', [FilteredManagerReview::class, 'index'])->name('reviews.my-reviews');
+
+
+    Route::get('/average/supervisor', [SupervisorAverage::class, 'index'])->name('average.supervisor');
+    Route::post('/average/supervisor/filter', [SupervisorAverageData::class, 'index'])->name('average.supervisor_filter');
 });

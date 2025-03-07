@@ -20,8 +20,8 @@
                             <div class="question">
                                 <h2 class="font-semibold text-md">{{ $question['question_description'] }}</h2>
                                 @foreach ($question['answers'] as $answer)
-                                    <div class="mb-2 font-semibold text-red-500 answer">
-                                        <p>{{ $answer['answer'] }}</p>
+                                    <div class="items-start mb-2 font-semibold text-red-500 answer">
+                                        <p style="text-align: justify;">{{ $answer['answer'] }}</p>
                                     </div>
                                 @endforeach
                             </div>

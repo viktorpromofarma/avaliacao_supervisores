@@ -22,4 +22,9 @@ class StatusAnswers extends Controller
             ->where('user_id', $user_id)
             ->Exists();
     }
+
+    public function getPeriod()
+    {
+        return Period::all();
+    }
 }

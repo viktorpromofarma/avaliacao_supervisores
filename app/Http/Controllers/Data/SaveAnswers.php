@@ -32,7 +32,7 @@ class SaveAnswers extends Controller
 
             return redirect(route('home'))->with('success', 'Respostas salvas com sucesso!');
         } catch (\Throwable $th) {
-            dd($th);
+
             return back()->with('error', 'Erro ao salvar respostas!');
         }
     }
@@ -50,15 +50,25 @@ class SaveAnswers extends Controller
 
 
             if ($question['type_description'] == 'Múltipla Escolha') {
-                SaveUserAnswers::create(array_merge($userData, $answerData, [
-                    'answer_id' => $answer,
-                    'answer_text' => null,
-                ]));
+
+                try {
+                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+                        'answer_id' => $answer,
+                        'answer_text' => null,
+                    ]));
+                } catch (\Throwable $th) {
+                    return back()->with('error', 'Erro ao salvar respostas!');
+                }
             } else {
-                SaveUserAnswers::create(array_merge($userData, $answerData, [
-                    'answer_id' => null,
-                    'answer_text' => $answer,
-                ]));
+
+                try {
+                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+                        'answer_id' => null,
+                        'answer_text' => $answer,
+                    ]));
+                } catch (\Throwable $th) {
+                    return back()->with('error', 'Erro ao salvar respostas!');
+                }
             }
         }
     }
