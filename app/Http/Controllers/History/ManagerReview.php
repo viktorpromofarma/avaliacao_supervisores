@@ -18,9 +18,7 @@ class ManagerReview extends Reviews
             ->where('month', $month)
             ->where('year', $year);
 
-
         $result = [];
-
 
         foreach ($categories as $category) {
             $categoryData = [
@@ -28,6 +26,7 @@ class ManagerReview extends Reviews
                 'category_description' => $category->description,
                 'questions' => []
             ];
+
             foreach ($questions as $question) {
                 if ($question->category_id == $category->id) {
                     $questionData = [
@@ -35,11 +34,17 @@ class ManagerReview extends Reviews
                         'question_description' => $question->description,
                         'answers' => []
                     ];
+
+                    // Obter as respostas do usuário para a questão
                     $userAnswersForQuestion = $userAnswers->where('question_id', $question->id);
+
+                    // Verificar se há respostas
                     foreach ($userAnswersForQuestion as $userAnswer) {
                         $answerText = $userAnswer->answer_text;
                         $answerId = $userAnswer->answer_id;
                         $answer = $answerId !== null ? $answers->find($answerId)->description : $answerText;
+
+                        // Se a resposta for válida, adicionar à lista de respostas da questão
                         if ($answer) {
                             $questionData['answers'][] = [
                                 'answer' => $answer,
@@ -48,11 +53,20 @@ class ManagerReview extends Reviews
                             ];
                         }
                     }
-                    $categoryData['questions'][] = $questionData;
+
+                    // Adicionar a questão ao array da categoria apenas se tiver respostas
+                    if (count($questionData['answers']) > 0) {
+                        $categoryData['questions'][] = $questionData;
+                    }
                 }
             }
-            $result[] = $categoryData;
+
+            // Adicionar a categoria ao resultado se tiver questões com respostas
+            if (count($categoryData['questions']) > 0) {
+                $result[] = $categoryData;
+            }
         }
+
         return $result;
     }
 }

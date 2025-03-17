@@ -17,7 +17,11 @@ class HomeController extends Controller
     {
         $validationPeriodoAnswers = $this->validationPeriodoAnswers();
 
+
         $roules = $this->getRoules();
+
+
+
         return view('home', [
             'roules' => $roules,
             'user_id' => Auth::user()->id,
@@ -32,8 +36,10 @@ class HomeController extends Controller
             return $this->roules = 'supervisor';
         } elseif (Sellers::where('gerente_atual', Auth::user()->seller)->Exists()) {
             return $this->roules = 'gerente';
-        } elseif (Auth::user()->seller == 4971) {
+        } elseif (Auth::user()->seller == 4971 || Auth::user()->seller == 3082) {
             return $this->roules = 'admin';
+        } elseif (Auth::user()->seller == 2446) {
+            return $this->roules = 'supervisor_geral';
         };
     }
 
@@ -53,8 +59,9 @@ class HomeController extends Controller
         $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
         $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
 
+
         if ($statusPeriod == null) {
-            return false;
+            return null;
         } else {
             return $statusAnswers;
         }

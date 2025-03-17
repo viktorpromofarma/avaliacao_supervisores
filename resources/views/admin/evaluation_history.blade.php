@@ -45,7 +45,7 @@
                             <thead class="text-white bg-red-500">
                                 <tr>
                                     <th class="px-4 py-2 text-xl text-center">Loja</th>
-                                    <th class="px-4 py-2 text-xl text-center">Data</th>
+                                    <th class="px-4 py-2 text-xl text-center">Período</th>
                                     <th class="px-4 py-2 text-xl text-center">Gerente</th>
                                     <th class="px-4 py-2 text-xl text-center">Supervisor</th>
                                     <th class="px-4 py-2 text-xl text-center">Relatório</th>

@@ -13,13 +13,25 @@ class UserData extends Controller
     {
         return User::query()->where('id', $id)->first();
     }
-
     public function getSupervisorStore($id)
     {
-
         return Sellers::query()
             ->where('supervisor', $id)
             ->select('LOJA')
             ->whereNull('data_saida')->get();
+    }
+
+    public function getSupervisor($id)
+    {
+        return Sellers::query()
+            ->where('supervisor', $id)
+            ->Exists();
+    }
+
+    public function getManager($id)
+    {
+        return Sellers::query()
+            ->where('gerente_atual', $id)
+            ->Exists();
     }
 }

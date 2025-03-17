@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers\Question;
 
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Question as QuestionModel;
 use App\Models\Category as CategoryModel;
 use App\Models\Answers as AnswersModel;
-use App\Models\StatusUserAnswers;
-use App\Models\Period;
+use App\Http\Controllers\Basic\UserData;
+
 
 class Questions extends Controller
 {
     public function __invoke()
     {
+
         $form_question = $this->getFormQuestions();
+
+
+
 
         return view('form.questions', ['user' => Auth::user(), 'form_questions' => $form_question]);
     }
 
-    public function getQuestions()
-    {
-        return QuestionModel::all();
-    }
 
     public function getCategories()
     {
@@ -37,10 +37,21 @@ class Questions extends Controller
 
     public function getFormQuestions()
     {
+        $supervisor = $this->getUserSupervisor(Auth::user()->seller);
 
         $categories = $this->getCategories();
-        $form_question = $categories->map(function ($category) {
-            $questions = $category->questions->map(function ($question) {
+
+        $form_question = $categories->map(function ($category) use ($supervisor) {
+
+            $questions = $category->questions()->where('supervisor_geral_question', $supervisor ? 1 : 0)->get();
+
+
+            if ($questions->isEmpty()) {
+                return null;
+            }
+
+            // Processa as questões
+            $questions = $questions->map(function ($question) {
                 $answers = $this->getAnswers($question->id);
                 return [
                     'id' => $question->id,
@@ -54,11 +65,29 @@ class Questions extends Controller
                     }) : [],
                 ];
             });
+
             return [
                 'categoria' => $category->description,
                 'questoes' => $questions
             ];
         });
+
+
+        $form_question = $form_question->filter(function ($item) {
+            return $item !== null;
+        });
+
         return $form_question;
+    }
+
+
+
+
+    public function getUserSupervisor()
+    {
+
+        $manager = new UserData();
+
+        return $manager->getSupervisor(Auth::user()->seller);
     }
 }

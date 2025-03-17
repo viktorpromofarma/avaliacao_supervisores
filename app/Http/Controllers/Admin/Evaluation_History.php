@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\StatusUserAnswers;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Basic\UserData;
+use Illuminate\Support\Facades\Auth;
 
 class Evaluation_History extends Controller
 {
@@ -19,8 +20,17 @@ class Evaluation_History extends Controller
         return view('admin.evaluation_history', ['statusUser' => $statusUser]);
     }
 
+    public function getUserManager()
+    {
+        $userData = new UserData();
+        return $userData->getManager(Auth::user()->seller);
+    }
+
     public function getStatusUser($filters = [])
     {
+        $user = $this->getUserManager();
+
+
         $query = StatusUserAnswers::query()
             ->leftJoin('usuarios_avaliacao_supervisao as b', 'status_user_answers.user_id', '=', 'b.id')
             ->leftJoin('usuarios_avaliacao_supervisao as c', 'status_user_answers.supervisor', '=', 'c.id')
@@ -67,6 +77,11 @@ class Evaluation_History extends Controller
                 $q->where('c.display_name', 'like', '%' . $filters['supervisor'] . '%')
                     ->orWhere('c.seller', 'like', '%' . $filters['supervisor'] . '%');
             });
+        }
+
+
+        if ($user) {
+            $query->where('status_user_answers.user_id ', Auth::user()->id);
         }
 
         // Ordena por data decrescente

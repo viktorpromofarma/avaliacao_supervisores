@@ -30,8 +30,8 @@
                             <thead class="text-white bg-red-500">
                                 <tr>
                                     <th class="px-4 py-2 text-xl text-center">Supervisor</th>
-                                    <th class="px-4 py-2 text-xl text-center">Mês</th>
-                                    <th class="px-4 py-2 text-xl text-center">Ano</th>
+                                    <th class="px-4 py-2 text-xl text-center">Período</th>
+
                                     <th class="px-4 py-2 text-xl text-center">Relatório</th>
                                 </tr>
                             </thead>
@@ -39,8 +39,9 @@
                                 @foreach ($statusSupervisors as $statusSupervisor)
                                     <tr class="font-bold text-center">
                                         <td class="px-4 py-2">{{ $statusSupervisor['name'] }}</td>
-                                        <td class="px-4 py-2">{{ $statusSupervisor['month'] }}</td>
-                                        <td class="px-4 py-2">{{ $statusSupervisor['year'] }}</td>
+                                        <td class="px-4 py-2">
+                                            {{ $statusSupervisor['month'] }}/{{ $statusSupervisor['year'] }} </td>
+
                                         <td class="px-4 py-2 ">
                                             <form action="{{ route('average.supervisor_filter') }}" method="POST">
                                                 @csrf

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->integer('type_id');
             $table->integer('category_id');
+            $table->boolean('supervisor_geral_question');
             $table->foreign('type_id')->references('id')->on('type_questions_supervisors_assessment');
             $table->foreign('category_id')->references('id')->on('category_questions_supervisors_assessment');
             $table->timestamps();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('questions_supervisors_assessment');
     }
 };

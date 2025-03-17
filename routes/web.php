@@ -8,18 +8,21 @@ use App\Http\Controllers\Settings\Period;
 use App\Http\Controllers\Data\SaveAnswers;
 use App\Http\Controllers\Question\Questions;
 use App\Http\Controllers\Settings\Categories;
-use App\Http\Controllers\Admin\Feedback_History;
 use App\Http\Controllers\Admin\Generate_Feedback;
 use App\Http\Controllers\Admin\Evaluation_History;
 use App\Http\Controllers\Authentication\FirstAccess;
+use App\Http\Controllers\Admin\Feedback\ApplyFeedback;
 use App\Http\Controllers\Authentication\CreateAccount;
 use App\Http\Controllers\History\FilteredManagerReview;
 use App\Http\Controllers\Authentication\LoginController;
+use App\Http\Controllers\Admin\Feedback\Feedback_History;
+use App\Http\Controllers\Admin\Feedback\SaveApplyFeedback;
 use App\Http\Controllers\History\Average\SupervisorAverage;
+use App\Http\Controllers\Admin\Feedback\ShowFeedbackSupervisor;
 use App\Http\Controllers\History\Average\SupervisorAverageData;
-use App\Http\Controllers\History\Average\SupervisorAverageFilter;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
 use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
+use App\Http\Controllers\User\Security\Profile;
 
 
 Route::get('/login', function () {
@@ -66,4 +69,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/average/supervisor', [SupervisorAverage::class, 'index'])->name('average.supervisor');
     Route::post('/average/supervisor/filter', [SupervisorAverageData::class, 'index'])->name('average.supervisor_filter');
+
+
+    Route::post('/feedback/apply', [ApplyFeedback::class, 'index'])->name('feedback.apply');
+    Route::delete('feedback/destroy/{id}', [ApplyFeedback::class, 'destroy'])->name('feedback.destroy');
+    Route::post('/feedback/save', [SaveApplyFeedback::class, 'store'])->name('feedback.save');
+
+
+    Route::post('/feedback/show', [ShowFeedbackSupervisor::class, 'index'])->name('feedback.show');
+
+
+    Route::get('/user/profile', [Profile::class, 'index'])->name('user.profile');
+    Route::post('/user/profile/update', [Profile::class, 'updateUser'])->name('user.profile.update');
 });

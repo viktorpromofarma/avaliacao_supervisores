@@ -5,20 +5,31 @@ namespace App\Http\Controllers\History\Average;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StatusUserAnswers;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Basic\UserData;
 
 
 class SupervisorAverage extends Controller
 {
     public function index(Request $request)
     {
+
         $filters = $request->only(['month', 'year',  'supervisor']);
         $statusSupervisors = $this->getSupervisorStatus($filters);
+
 
         return view('supervisors.average.supervisorAverage', ['statusSupervisors' => $statusSupervisors]);
     }
 
+    public function getUserSupervisor()
+    {
+        $userData = new UserData();
+        return $userData->getSupervisor(Auth::user()->seller);
+    }
+
     public function getSupervisorStatus($filters = [])
     {
+        $user = $this->getUserSupervisor();
 
         $query = StatusUserAnswers::query()
             ->leftJoin('usuarios_avaliacao_supervisao as b', 'status_user_answers.supervisor', '=', 'b.id')
@@ -44,6 +55,17 @@ class SupervisorAverage extends Controller
                     ->orWhere('b.seller', 'like', '%' . $filters['supervisor'] . '%');
             });
         }
+
+        if (empty($filters['month']) && empty($filters['year']) && empty($filters['supervisor'])) {
+            $query->where('status_user_answers.month', date('m'))
+                ->where('status_user_answers.year', date('Y'));
+        }
+
+        if ($user) {
+            $query->where('status_user_answers.supervisor', Auth::user()->id);
+        }
+
+
 
         return $query->get();
     }

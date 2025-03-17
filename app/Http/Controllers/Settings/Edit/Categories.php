@@ -19,7 +19,7 @@ class Categories extends Controller
 
             return redirect()->route('settings.categories')->with('success', 'Categoria atualizada com sucesso!');
         } catch (\Throwable $th) {
-            dd($th);
+
             return back()->with('error', 'Erro ao atualizar categoria!');
         }
     }

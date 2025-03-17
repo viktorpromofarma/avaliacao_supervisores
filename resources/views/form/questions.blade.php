@@ -1,8 +1,10 @@
 <x-mains.navigation />
 <x-mains.app>
-    <x-alerts.alertSucessError />
+    <div class="fixed top-6 right-3 z-[1050]">
+        <x-alerts.alertSucessError />
+    </div>
 
-    <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
+    <div class="flex flex-col items-center" style="margin-top: 4%; margin-bottom: 5%">
         <form action="{{ route('save-answers') }}" method="POST">
             @csrf
 

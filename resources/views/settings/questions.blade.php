@@ -1,10 +1,12 @@
 <x-mains.navigation />
 <x-mains.app>
 
+    <div class="fixed top-6 right-3 z-[1050]">
+        <x-alerts.alertSucessError />
+    </div>
 
-    <x-alerts.alertSucessError />
 
-    <div class="flex flex-col items-center" style="margin-top: 3%; margin-bottom: 5%">
+    <div class="flex flex-col items-center" style="margin-top: 4%; margin-bottom: 5%">
 
         <!-- Formulário -->
         <form action="{{ route('settings.questions.store') }}" method="POST" class="w-full max-w-2xl">
@@ -31,11 +33,19 @@
                         <x-inputs.input id="description" name="description" type="text" placeholder=""
                             class="w-full px-3 py-2 border border-gray-300 rounded-md " requirido="true" />
                     </div>
-
+                    <div class="mb-2">
+                        <x-inputs.label for="generalSupervisor" text="Avalia o supervisor Geral"
+                            class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.select id="generalSupervisor" name="generalSupervisor"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="1">Sim, Disponibilizar questão para avaliar o supervisor geral.</option>
+                            <option value="0">Não, Disponibilizar questão apenas para os supervisores regionais.
+                            </option>
+                        </x-inputs.select>
+                    </div>
                     <div class="mb-2">
                         <x-inputs.label for="type" text="Tipo da questão"
                             class="block text-xl font-bold text-gray-700" />
-
                         <div class="flex flex-col gap-2 mt-2">
                             @foreach ($typeQuestions as $typeQuestion)
                                 <label class="flex items-center gap-2">
@@ -70,6 +80,7 @@
                         <tr>
                             <th class="px-4 py-2 ">Categoria</th>
                             <th class="px-4 py-2 ">Descrição</th>
+                            <th class="px-4 py-2"> Avalia o Supervisor Geral ? </th>
                             <th class="px-4 py-2 ">Tipo</th>
                             <th class="px-4 py-2 ">Ações</th>
                             <!-- Ocupa duas colunas -->
@@ -82,6 +93,10 @@
                                 <td class="px-4 py-2 font-bold text-center">{{ $question['category_description'] }}
                                 </td>
                                 <td class="px-4 py-2 font-bold text-justify">{{ $question['description'] }} </td>
+                                <td class="px-4 py-2 font-bold text-center">
+                                    {{ $question['supervisor_geral_question'] == 1 ? 'Sim' : 'Não' }}
+                                </td>
+
                                 <td class="px-4 py-2 font-bold text-center">{{ $question['type_description'] }} </td>
 
                                 <td class="px-4 py-2">
@@ -93,7 +108,7 @@
                                             <button type="submit"
                                                 class="inline-flex items-center px-6 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">
                                                 Excluir <i class="ml-2 fa-solid fa-trash"></i>
-                                                <!-- Adiciona margem à esquerda do ícone -->
+
                                             </button>
                                         </form>
                                     </div>

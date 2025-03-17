@@ -28,6 +28,7 @@ class loginController extends Controller
 
 
 
+
         if ($verifySeller == true && $credentials['password'] == 'promofarma') {
             return redirect()->route('first-access', ['id' => $credentials['username']]);
         }

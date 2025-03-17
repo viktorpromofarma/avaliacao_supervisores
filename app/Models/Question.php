@@ -11,6 +11,7 @@ class Question extends Model
     protected $fillable = [
         'description',
         'type_id',
+        'supervisor_geral_question',
         'category_id',
         'created_at'
     ];

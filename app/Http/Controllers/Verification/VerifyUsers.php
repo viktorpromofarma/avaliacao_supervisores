@@ -16,13 +16,10 @@ class VerifyUsers extends Controller
     public function getExistUser($seller)
     {
         $user = $this->getUser($seller);
-
-
-
         $procfit = $this->getSellerProcfit($seller);
         $registration = $this->getSeller($seller);
 
-        //dd($user, $procfit, $registration);
+        //  dd($user, $procfit, $registration);
 
         if (!$user) {
             if (!$procfit) {
@@ -40,7 +37,6 @@ class VerifyUsers extends Controller
     public function getUser($seller)
     {
         return User::where('username', $seller)
-
             ->Exists();
     }
     public function getSellerProcfit($seller)
@@ -54,7 +50,13 @@ class VerifyUsers extends Controller
             ->where('data_saida', null)
             ->Exists();
 
-        if ($seller != 4971) {
+        if ($seller == 2446) {
+            $general = true;
+        }
+
+
+
+        if ($seller != 4971 || $seller != 3082) {
             return $general;
         } else {
             return true;

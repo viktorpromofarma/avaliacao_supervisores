@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             respostaInput.type = "text";
             respostaInput.name = `respostas[]`;
             respostaInput.placeholder = `Resposta ${i}`;
-            respostaInput.className = "w-full px-2 py-2 mt-2 border border-gray-300 rounded-md";
+            respostaInput.className = "w-full px-2 py-2 mt-2 mb-4 border border-gray-300 rounded-md";
             respostaInput.style.marginTop = "12px"; // Adiciona margem superior
 
             respostaInput.required = true; // Adiciona required corretamente

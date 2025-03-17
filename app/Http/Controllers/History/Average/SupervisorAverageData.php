@@ -40,6 +40,8 @@ class SupervisorAverageData extends SupervisorAverageFilter
         $baseSupervisorAverage = $this->getSupervisorAverage($request->supervisor, $request->month, $request->year);
         $averageByCategory = $this->getAverageByCategory($baseSupervisorAverage);
 
+
+
         return $averageByCategory;
     }
 

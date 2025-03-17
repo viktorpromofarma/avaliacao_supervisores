@@ -6,13 +6,12 @@
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
                 <legend class="text-2xl font-bold">Médias de avaliação do Supervisor</legend>
                 <div class="mb-8">
-                    <h1 class="font-semibold text-md">Supervisor: <span
+                    <h1 class="font-bold text-md">Supervisor: <span
                             class="text-red-500">{{ $userData['display_name'] }}</span></h1>
-                    <h1 class="font-semibold text-md">Mês de Avaliação: <span
-                            class="text-red-500">{{ $month }}</span></h1>
-                    <h1 class="font-semibold text-md">Ano de Avaliação: <span
-                            class="text-red-500">{{ $year }}</span></h1>
-                    <h1 class="font-semibold text-md">Lojas Supervisionadas:
+                    <h1 class="font-bold text-md">Período de avaliação: <span
+                            class="text-red-500">{{ $month }}/{{ $year }}</span></h1>
+
+                    <h1 class="font-bold text-md">Lojas Supervisionadas:
                         @foreach ($supervisorStores as $supervisorStore)
                             <span class="text-red-500">{{ $supervisorStore['LOJA'] }}</span>
                             @if (!$loop->last)
@@ -20,14 +19,7 @@
                             @endif
                         @endforeach
                     </h1>
-                    <h1 class="font-semibold text-md">Lojas que avaliaram:
-                        @foreach ($supervisorStoresAnswers as $supervisorStoresAnswer)
-                            <span class="text-red-500">{{ $supervisorStoresAnswer['store'] }}</span>
-                            @if (!$loop->last)
-                                ,
-                            @endif
-                        @endforeach
-                    </h1>
+
                 </div>
                 <div class="mt-4 mb-4">
                     <hr class="border-red-300 border-t-1">
@@ -43,10 +35,10 @@
                         <tbody>
                             @foreach ($supervisorAverages as $supervisorAverage)
                                 <tr>
-                                    <td class="px-4 py-2 font-semibold ">
+                                    <td class="px-4 py-2 font-bold ">
                                         {{ $supervisorAverage['CATEGORY_DESCRIPTION'] }}
                                     </td>
-                                    <td class="px-4 py-2 font-semibold ">
+                                    <td class="px-4 py-2 font-bold ">
                                         {{ $supervisorAverage['AVERAGE_NOTE'] }}</td>
                                 </tr>
                             @endforeach

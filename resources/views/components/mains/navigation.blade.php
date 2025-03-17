@@ -21,7 +21,7 @@
 <div id="menuPanel"
     class="fixed inset-y-0 right-0 z-20 w-64 transition-transform duration-300 ease-in-out transform translate-x-full bg-white shadow-lg">
     <div class="p-4">
-        <a href="#" class="flex items-center px-4 py-2 text-black hover:bg-gray-200">
+        <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-2 text-black hover:bg-gray-200">
             <i class="fa-solid fa-user"></i>
             <span class="ml-2">Perfil</span>
         </a>

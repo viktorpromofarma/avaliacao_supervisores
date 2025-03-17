@@ -13,12 +13,13 @@ class Questions extends Controller
 {
     public function index()
     {
-        // Categorias cadastradas pelo ADMIN
+
         $categories = $this->getCategories();
-        // Tipos de questões cadastradas
+
         $typeQuestions = $this->getTypesQuestions();
-        // Questões cadastradas
+
         $questions = $this->getQuestions();
+
 
 
 
@@ -34,11 +35,15 @@ class Questions extends Controller
 
     public function store(Request $request)
     {
+
+
+
         try {
             $question = QuestionModel::create([
                 'description' => $request->description,
                 'category_id' => $request->category,
                 'type_id' => $request->type_question,
+                'supervisor_geral_question' => $request->generalSupervisor,
                 'created_at' => date('d-m-Y'),
             ]);
             try {
@@ -72,7 +77,7 @@ class Questions extends Controller
     public function getQuestions()
     {
 
-        $questions = QuestionModel::with(['type', 'category'])->get();
+        $questions = QuestionModel::with(['type', 'category',])->get();
 
 
         $questionsWithDescriptions = $questions->map(function ($question) {
