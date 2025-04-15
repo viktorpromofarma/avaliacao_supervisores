@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('answer_text')->nullable();
             $table->foreign('question_id')->references('id')->on('questions_supervisors_assessment')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('usuarios_avaliacao_supervisao');
-            $table->unique(['user_id', 'question_id', 'created_at']);
-
+            $table->unique(['user_id', 'question_id', 'created_at', 'store']);
             $table->timestamps();
         });
     }

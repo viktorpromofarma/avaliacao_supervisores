@@ -15,22 +15,27 @@ class VerifyUsers extends Controller
 
     public function getExistUser($seller)
     {
-        $user = $this->getUser($seller);
-        $procfit = $this->getSellerProcfit($seller);
-        $registration = $this->getSeller($seller);
+        $getUser = $this->getUser($seller);
+        $getSellerProcfit = $this->getSellerProcfit($seller);
+        $getSeller = $this->getSeller($seller);
 
-        //  dd($user, $procfit, $registration);
 
-        if (!$user) {
-            if (!$procfit) {
-                return false;
-            } else {
-                if (!$registration) {
+
+
+        if ($getUser == false) {
+
+            if ($getSeller == false) {
+
+                if ($getSellerProcfit == false) {
                     return false;
                 } else {
                     return true;
                 }
+            } else {
+                return true;
             }
+        } else {
+            return true;
         }
     }
 
@@ -41,7 +46,9 @@ class VerifyUsers extends Controller
     }
     public function getSellerProcfit($seller)
     {
-        return SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)->Exists();
+        return $sellerProcit = SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)
+            ->whereIn('matricula', [3082, 4971, 2446])
+            ->Exists();
     }
     public function getSeller($seller)
     {
@@ -50,16 +57,6 @@ class VerifyUsers extends Controller
             ->where('data_saida', null)
             ->Exists();
 
-        if ($seller == 2446) {
-            $general = true;
-        }
-
-
-
-        if ($seller != 4971 || $seller != 3082) {
-            return $general;
-        } else {
-            return true;
-        }
+        return $general;
     }
 }

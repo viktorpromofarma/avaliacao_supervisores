@@ -21,10 +21,13 @@ class UserData extends Controller
             ->whereNull('data_saida')->get();
     }
 
-    public function getSupervisor($id)
+    public function getSupervisor($id, $store)
     {
+
+
         return Sellers::query()
             ->where('supervisor', $id)
+            ->where('loja', $store)
             ->Exists();
     }
 

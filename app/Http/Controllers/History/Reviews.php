@@ -30,6 +30,7 @@ class Reviews extends Controller
                 'question_id',
                 'answer_id',
                 'answer_text',
+                'store',
                 'created_at',
                 DB::raw('DATEPART(MONTH, created_at) AS month'),
                 DB::raw('DATEPART(YEAR, created_at) AS year')

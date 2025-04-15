@@ -10,7 +10,8 @@ class SellersProcfit extends Model
 
     protected $fillable = [
         'nome',
-        'matricula'
+        'matricula',
+        'inscricao_federal'
     ];
 
     public $timestamps = false;

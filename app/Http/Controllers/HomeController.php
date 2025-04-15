@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Sellers;
 use App\Http\Controllers\Verification\StatusAnswers;
-
+use Termwind\Components\Dd;
 
 class HomeController extends Controller
 {
@@ -17,11 +17,9 @@ class HomeController extends Controller
     {
         $validationPeriodoAnswers = $this->validationPeriodoAnswers();
 
+        // dd($validationPeriodoAnswers);
 
         $roules = $this->getRoules();
-
-
-
         return view('home', [
             'roules' => $roules,
             'user_id' => Auth::user()->id,
@@ -56,7 +54,8 @@ class HomeController extends Controller
     public function validationPeriodoAnswers()
     {
 
-        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
+        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
+
         $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
 
 

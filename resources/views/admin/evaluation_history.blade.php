@@ -39,7 +39,7 @@
             </x-slot>
 
             <x-slot name="table">
-                <div class="p-8 mt-6 mb-8 overflow-x-auto">
+                <div class="p-8 mb-8 overflow-x-auto">
                     <div class="overflow-y-auto rounded-lg max-h-96">
                         <table class="min-w-full bg-white border shadow-md striped">
                             <thead class="text-white bg-red-500">
@@ -64,6 +64,7 @@
                                                 <input type="hidden" name="user_id" value="{{ $status->user_id }}">
                                                 <input type="hidden" name="month" value="{{ $status->month }}">
                                                 <input type="hidden" name="year" value="{{ $status->year }}">
+                                                <input type="hidden" name="store" value="{{ $status->store }}">
                                                 <button type="submit"
                                                     class="px-2 py-2 mt-4 font-bold text-white bg-green-500 rounded hover:bg-green-700">
                                                     Visualizar

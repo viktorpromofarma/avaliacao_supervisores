@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\Question;
 
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Question as QuestionModel;
-use App\Models\Category as CategoryModel;
 use App\Models\Answers as AnswersModel;
 use App\Http\Controllers\Basic\UserData;
+use App\Models\Category as CategoryModel;
+use App\Http\Controllers\Verification\StatusAnswers;
 
 
 class Questions extends Controller
 {
     public function __invoke()
     {
-
         $form_question = $this->getFormQuestions();
-
-
-
 
         return view('form.questions', ['user' => Auth::user(), 'form_questions' => $form_question]);
     }
@@ -37,20 +34,19 @@ class Questions extends Controller
 
     public function getFormQuestions()
     {
-        $supervisor = $this->getUserSupervisor(Auth::user()->seller);
+        $regional = $this->getUserSupervisor(Auth::user()->seller);
 
         $categories = $this->getCategories();
 
-        $form_question = $categories->map(function ($category) use ($supervisor) {
+        $form_question = $categories->map(function ($category) use ($regional) {
 
-            $questions = $category->questions()->where('supervisor_geral_question', $supervisor ? 1 : 0)->get();
+            $questions = $category->questions()->where('supervisor_geral_question', $regional ? 1 : 0)->get();
 
 
             if ($questions->isEmpty()) {
                 return null;
             }
 
-            // Processa as questões
             $questions = $questions->map(function ($question) {
                 $answers = $this->getAnswers($question->id);
                 return [
@@ -81,13 +77,17 @@ class Questions extends Controller
     }
 
 
-
-
     public function getUserSupervisor()
     {
+        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
 
-        $manager = new UserData();
+        $regional = new UserData();
 
-        return $manager->getSupervisor(Auth::user()->seller);
+        return $regional->getSupervisor(Auth::user()->seller, $statusAnswers->LOJA);
+    }
+
+    public function getUserAnswersStatus($user_id)
+    {
+        return (new StatusAnswers())->getUserAnswersStatus($user_id);
     }
 }

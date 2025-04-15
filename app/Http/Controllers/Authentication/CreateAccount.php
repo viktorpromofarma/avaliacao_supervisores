@@ -3,22 +3,23 @@
 namespace App\Http\Controllers\Authentication;
 
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Verification\VerifyUsers;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Monolog\Handler\IFTTTHandler;
-use Whoops\Exception\Formatter;
-
+use App\Models\Sellers;
+use App\Models\AccessRoles;
+use Illuminate\Http\Request;
 use function Laravel\Prompts\form;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Verification\VerifyUsers;
 
 class CreateAccount extends VerifyUsers
 {
     public function store(Request $request)
     {
 
-        $registerValidation = $this->getSellerProcfit($request->id);
 
+        $registerValidation = $this->getExistUser($request->id);
 
 
         if (!$registerValidation) {
@@ -58,11 +59,74 @@ class CreateAccount extends VerifyUsers
 
         ]);
 
+        $this->setUsersRoles($request->id);
+
         return redirect()->route('login');
     }
 
-    public function getSellerProcfit($seller)
+    public function getExistUser($seller)
     {
-        return parent::getSellerProcfit($seller);
+        return parent::getExistUser($seller);
+    }
+
+    public function setUsersRoles($seller)
+    {
+        $user = User::where('seller', $seller)->first();
+
+
+        $user_id = $user->id;
+
+        $supervisor = Sellers::where(DB::raw('CAST(supervisor AS CHAR)'), $seller)->first();
+        $gerente = Sellers::where('gerente_atual', '=', $seller)->first();
+
+
+
+
+        if ($supervisor) {
+            $data = [
+                'admin' => false,
+                'root' => false,
+                'supervisor' => false,
+                'regional' => true,
+                'gerentes' => false,
+            ];
+        } elseif ($gerente) {
+            $data = [
+                'admin' => false,
+                'root' => false,
+                'supervisor' => false,
+                'regional' => false,
+                'gerentes' => true,
+            ];
+        } else {
+            $data = match ($seller) {
+                "4971" => [
+                    'admin' => true,
+                    'root' => false,
+                    'supervisor' => false,
+                    'regional' => false,
+                    'gerentes' => false,
+                ],
+                "2446" => [
+                    'admin' => false,
+                    'root' => false,
+                    'supervisor' => true,
+                    'regional' => false,
+                    'gerentes' => false,
+                ],
+                "3082" => [
+                    'admin' => false,
+                    'root' => true,
+                    'supervisor' => false,
+                    'regional' => false,
+                    'gerentes' => false,
+                ]
+            };
+        }
+
+        AccessRoles::firstOrCreate(
+            ['user_id' => $user_id],
+            ['created_at' => date('d-m-Y'), ...$data]
+        );
     }
 }

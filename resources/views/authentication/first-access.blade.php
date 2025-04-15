@@ -29,8 +29,9 @@
                 <!-- Matrícula -->
                 <div class="mt-4">
                     <x-inputs.label for="username" text="Seu Usuário" class="block font-bold text-gray-700" />
-                    <x-inputs.input id="username" name="username" type="text" placeholder=""
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md " />
+                    <input type="text" id="username" name="username" value="{{ $username }}" readonly
+                        class="w-full px-3 py-2 text-gray-500 bg-gray-200 border border-gray-300 rounded-md" />
+
                 </div>
 
                 <!-- Nome -->

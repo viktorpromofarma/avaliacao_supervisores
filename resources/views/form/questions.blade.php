@@ -25,7 +25,7 @@
                                     </label>
                                 @endforeach
                             @else
-                                <textarea name="{{ $questao['id'] }}" class="w-full p-2 border border-gray-300 rounded" rows="4"
+                                <textarea name="{{ $questao['id'] }}" class="w-full p-2 border border-gray-300 rounded" maxlength="254" rows="4"
                                     placeholder="Sua resposta..."></textarea>
                             @endif
                         </div>

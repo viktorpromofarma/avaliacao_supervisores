@@ -8,6 +8,7 @@
                 <div class="mb-8">
                     <h1 class="text-lg font-semibold">Avaliação de Liderança de {{ $userDatas['supervisor_name'] }} </h1>
                     <h1 class="font-semibold text-md">Data de Avaliação: {{ $userDatas['data_registro'] }} </h1>
+                    <h1 class="font-semibold text-md">Loja da avaliação: {{ $userDatas['store'] }} </h1>
                 </div>
                 <div class="mt-4 mb-4">
                     <hr class="border-red-300 border-t-1">

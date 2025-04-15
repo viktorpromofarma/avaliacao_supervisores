@@ -14,20 +14,16 @@
                         ? 'Área do Supervisor'
                         : 'Área do Admin')) }}">
             @if ($roules == 'gerente')
-                @if ($validationPeriodoAnswers === true)
-                    <div style='color: #4CAF50;'>
-                        <x-navigation.options route="{{ route('home') }}"
-                            icon="<i class='fa-solid fa-check-double fa-4x'></i>" description="Avaliação já respondida" />
-                    </div>
-                @elseif ($validationPeriodoAnswers === false)
+                @if ($validationPeriodoAnswers)
                     <x-navigation.buttomModal action="openConfirmation()" description="Realizar Avaliação"
                         icon="<i class='fa-regular fa-pen-to-square fa-4x'></i>" />
-                @elseif($validationPeriodoAnswers == null)
+                @else
                     <div style='color: red;'>
                         <x-navigation.options route="{{ route('home') }}" icon="<i class='fa-solid fa-xmark fa-4x'></i>"
                             description="Avaliação não está disponível" />
                     </div>
                 @endif
+
                 <x-navigation.options route="{{ route('admin.evaluation_history') }}"
                     icon="<i class='fa-solid fa-file-circle-check fa-4x'></i>" description="Histórico de Avaliações" />
             @elseif ($roules == 'supervisor')

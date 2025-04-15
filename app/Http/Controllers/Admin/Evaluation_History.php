@@ -13,10 +13,11 @@ class Evaluation_History extends Controller
 {
     public function index(Request $request)
     {
+
+
+
         $filters = $request->only(['month', 'year', 'storeStart', 'storeEnd', 'manager', 'supervisor']);
         $statusUser = $this->getStatusUser($filters);
-
-
         return view('admin.evaluation_history', ['statusUser' => $statusUser]);
     }
 
@@ -29,6 +30,7 @@ class Evaluation_History extends Controller
     public function getStatusUser($filters = [])
     {
         $user = $this->getUserManager();
+
 
 
         $query = StatusUserAnswers::query()
@@ -47,6 +49,9 @@ class Evaluation_History extends Controller
                 'c.display_name as supervisor_name',
                 'c.seller as supervisor_register'
             );
+
+
+
 
         // Aplica os filtros de forma condicional
         if (!empty($filters['month'])) {
@@ -79,15 +84,13 @@ class Evaluation_History extends Controller
             });
         }
 
-
         if ($user) {
             $query->where('status_user_answers.user_id ', Auth::user()->id);
         }
 
-        // Ordena por data decrescente
-        $query->orderBy('status_user_answers.created_at', 'desc');
-
-
+        $query
+            ->orderBy('status_user_answers.month', 'asc')
+            ->orderBy('status_user_answers.year', 'asc');
 
         return $query->get();
     }

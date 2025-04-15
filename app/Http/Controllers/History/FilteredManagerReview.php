@@ -13,11 +13,13 @@ class FilteredManagerReview extends ManagerReview
 {
     public function index(Request $request)
     {
+
+
         $userData = $this->getReviewUsersData($request);
 
+
+
         $review = $this->getReview($request);
-
-
 
         return view('reviews.review', [
             'reviews' => $review,
@@ -29,13 +31,15 @@ class FilteredManagerReview extends ManagerReview
     {
         extract($this->getRequestParameters($request));
 
-        $baseReview = $this->getBaseReview($id, $month, $year);
+        $baseReview = $this->getBaseReview($id, $month, $year, $store);
 
         return $baseReview;
     }
 
     public function getReviewUsersData($request)
     {
+
+
         extract($this->getRequestParameters($request));
 
         return StatusUserAnswers::query()
@@ -55,6 +59,7 @@ class FilteredManagerReview extends ManagerReview
                 'c.seller as supervisor_register'
             )->where('status_user_answers.month', $month)
             ->where('status_user_answers.year', $year)
+            ->where('status_user_answers.store', $store)
             ->where('status_user_answers.user_id', $id)->first();
     }
 
@@ -64,6 +69,7 @@ class FilteredManagerReview extends ManagerReview
             'id' => $request->user_id,
             'month' => $request->month,
             'year' => $request->year,
+            'store' => $request->store
         ];
     }
 }

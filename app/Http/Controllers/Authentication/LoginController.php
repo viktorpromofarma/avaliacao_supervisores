@@ -35,8 +35,6 @@ class loginController extends Controller
 
         $user = User::where('username', $credentials['username'])->first();
 
-
-
         if (!$user || !Hash::check($credentials['password'], $user->password) || $user->active == 'N') {
 
             return back()->with('error', 'Usuário ou senha inválidos');

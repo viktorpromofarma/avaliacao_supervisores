@@ -13,8 +13,6 @@ class VerifySeller extends VerifyUsers
 
         $existUser = $this->getExistUser($seller);
 
-
-
         return $existUser;
     }
 }

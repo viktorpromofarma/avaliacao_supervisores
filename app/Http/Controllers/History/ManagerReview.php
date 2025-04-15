@@ -7,16 +7,18 @@ use App\Http\Controllers\History\Reviews;
 
 class ManagerReview extends Reviews
 {
-    public function getBaseReview($id, $month, $year)
+    public function getBaseReview($id, $month, $year, $store)
     {
         $categories = $this->getCategories();
         $questions = $this->getQuestions();
         $answers = $this->getAnswers();
 
+
         $userAnswers = $this->getSaveUserAnswers()
             ->where('user_id', $id)
             ->where('month', $month)
-            ->where('year', $year);
+            ->where('year', $year)
+            ->where('store', $store);
 
         $result = [];
 

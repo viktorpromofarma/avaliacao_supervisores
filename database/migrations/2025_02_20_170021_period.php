@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('period', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('year');
-            $table->string('month');
+            $table->integer('month');
             $table->date('start');
             $table->date('end');
             $table->timestamps();

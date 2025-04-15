@@ -16,6 +16,7 @@ class SaveUserAnswers extends Model
         'answer_id',
         'answer_text',
         'created_at',
+        'store'
     ];
 
     public $timestamps = false;
