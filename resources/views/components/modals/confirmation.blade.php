@@ -13,7 +13,7 @@
             <div class="w-full max-w-sm p-12 bg-white border border-red-700 border-spacing-4 rounded-xl"
                 onclick="event.stopPropagation()">
                 <h3 class="mb-8 text-xl font-semibold">{{ $description }}</h3>
-                <button onclick="window.location.href='{{ route('questions') }}'"
+                <button onclick="window.location.href='{{ $route }}'"
                     class="px-4 py-4 font-bold text-white bg-green-500 rounded hover:bg-green-700">
                     {{ $confirmationText }}
                 </button>

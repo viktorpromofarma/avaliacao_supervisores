@@ -42,6 +42,7 @@ class SupervisorsEvaluationComments extends Controller
                 $join->on('status_user_answers.user_id', '=', 'b.user_id')
                     ->on('status_user_answers.month', '=', DB::raw('month(b.created_at)'))
                     ->on('status_user_answers.year', '=', DB::raw('year(b.created_at)'))
+                    ->on('status_user_answers.store', '=', 'b.store')
                     ->whereNotNull('b.answer_text');
             })
             ->leftJoin('questions_supervisors_assessment as c', 'b.question_id', '=', 'c.id')
@@ -52,6 +53,8 @@ class SupervisorsEvaluationComments extends Controller
                 'd.description',
                 'b.id as answer_id',
                 'b.answer_text as commentary'
-            )->get();
+            )
+
+            ->get();
     }
 }

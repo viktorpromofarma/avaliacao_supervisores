@@ -12,6 +12,8 @@ class Generate_Feedback extends Controller
     {
         $supervisors = $this->getStatusSupervisor()->get();
 
+
+
         return view('admin.generate_feedback', ['supervisors' => $supervisors]);
     }
 

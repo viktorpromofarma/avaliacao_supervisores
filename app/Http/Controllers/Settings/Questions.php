@@ -36,8 +36,6 @@ class Questions extends Controller
     public function store(Request $request)
     {
 
-
-
         try {
             $question = QuestionModel::create([
                 'description' => $request->description,

@@ -48,5 +48,13 @@ class User extends Authenticatable
     {
         return 'username';
     }
+
+
+    public function accessRole()
+    {
+        return $this->hasOne(AccessRoles::class, 'user_id', 'id');
+    }
+
+
     public $timestamps = false;
 }

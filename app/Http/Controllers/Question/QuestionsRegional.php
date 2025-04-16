@@ -2,49 +2,44 @@
 
 namespace App\Http\Controllers\Question;
 
-
-use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Question\Questions;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Answers as AnswersModel;
-use App\Http\Controllers\Basic\UserData;
-use App\Models\Category as CategoryModel;
-use App\Http\Controllers\Verification\StatusAnswers;
 
-
-class Questions extends Controller
+class QuestionsRegional extends Controller
 {
     public function __invoke()
     {
-        $supervisorInfo = $this->getUserAnswersStatus(Auth::user()->id)->first();
-
-        // dd($supervisorInfo);
+        $supervisorInfo = $this->getSupervisor();
 
         $form_question = $this->getFormQuestions();
 
-        return view('form.questions', ['user' => Auth::user(), 'form_questions' => $form_question, 'supervisorInfo' => $supervisorInfo]);
+
+        return view('form.questions-regional', ['user' => Auth::user(), 'form_questions' => $form_question, 'supervisorInfo' => $supervisorInfo]);
     }
 
 
     public function getCategories()
     {
-        return CategoryModel::all();
+        return (new Questions())->getCategories();
     }
 
     public function getAnswers($questionId)
     {
-        return AnswersModel::where('question_id', $questionId)->get();
+        return (new Questions())->getAnswers($questionId);
     }
 
     public function getFormQuestions()
     {
-        $regional = $this->getUserSupervisor(Auth::user()->seller);
+
 
         $categories = $this->getCategories();
 
-        $form_question = $categories->map(function ($category) use ($regional) {
+        $form_question = $categories->map(function ($category) {
 
-            $questions = $category->questions()->where('supervisor_geral_question', $regional ? 'S' : 'N')->get();
+            $questions = $category->questions()->where('supervisor_geral_question', 'S')->get();
 
 
             if ($questions->isEmpty()) {
@@ -81,19 +76,17 @@ class Questions extends Controller
     }
 
 
-    public function getUserSupervisor()
+    public function getSupervisor()
     {
-        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
 
-        $regional = new UserData();
+        $supervisorInfo = User::query()
+            ->join('access_roles as b', function ($join) {
+                $join->on('usuarios_avaliacao_supervisao.id', '=', 'b.user_id');
+            })
+            ->select('usuarios_avaliacao_supervisao.id', 'display_name as NOME_SUPERVISOR', DB::raw('990 AS LOJA'))
+            ->where('b.supervisor', 1)
+            ->first();
 
-
-
-        return $regional->getSupervisor(Auth::user()->seller, $statusAnswers->LOJA);
-    }
-
-    public function getUserAnswersStatus($user_id)
-    {
-        return (new StatusAnswers())->getUserAnswersStatus($user_id);
+        return $supervisorInfo;
     }
 }

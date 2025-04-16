@@ -13,9 +13,11 @@
             <div class="mt-4 mb-4">
                 <hr class="border-red-300 border-t-1">
             </div>
-            <form action="{{ route('save-answers') }}" method="POST">
+            <form action="{{ route('save-answers-regional') }}" method="POST">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
+                <input type="hidden" name="store" value="{{ $supervisorInfo['LOJA'] }}">
+                <input type="hidden" name="supervisor_id" value="{{ $supervisorInfo['id'] }}">
                 @foreach ($form_questions as $categoria)
                     <h1 class="mb-4 text-2xl font-bold ">{{ $categoria['categoria'] }}</h1>
                     @foreach ($categoria['questoes'] as $questao)

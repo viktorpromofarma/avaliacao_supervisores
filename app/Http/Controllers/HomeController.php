@@ -17,28 +17,12 @@ class HomeController extends Controller
     {
         $validationPeriodoAnswers = $this->validationPeriodoAnswers();
 
-        // dd($validationPeriodoAnswers);
-
-        $roules = $this->getRoules();
         return view('home', [
-            'roules' => $roules,
-            'user_id' => Auth::user()->id,
+            'user' => Auth::user(),
+
             'validationPeriodoAnswers' => $validationPeriodoAnswers
 
         ]);
-    }
-
-    public function getRoules()
-    {
-        if (Sellers::where('supervisor', Auth::user()->seller)->Exists()) {
-            return $this->roules = 'supervisor';
-        } elseif (Sellers::where('gerente_atual', Auth::user()->seller)->Exists()) {
-            return $this->roules = 'gerente';
-        } elseif (Auth::user()->seller == 4971 || Auth::user()->seller == 3082) {
-            return $this->roules = 'admin';
-        } elseif (Auth::user()->seller == 2446) {
-            return $this->roules = 'supervisor_geral';
-        };
     }
 
     public function getUserAnswersStatus($user_id)
@@ -55,9 +39,7 @@ class HomeController extends Controller
     {
 
         $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
-
         $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
-
 
         if ($statusPeriod == null) {
             return null;

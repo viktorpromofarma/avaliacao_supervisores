@@ -11,12 +11,15 @@ use App\Models\StatusUserAnswers;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\History\Reviews;
 use App\Http\Controllers\Verification\StatusAnswers;
+use App\Http\Controllers\Data\SaveAnswers;
 
 
-class SaveAnswers extends Controller
+class SaveAnswersRegional extends Controller
 {
+
     public function store(Request $request)
     {
+
 
         $categories = $this->getQuestionsCategories();
         $data = $request->except(['_token', 'user_id']);
@@ -27,9 +30,9 @@ class SaveAnswers extends Controller
         ];
         try {
             foreach ($data as $question_id => $answer) {
-                $this->saveAnswer($categories, $question_id, $answer, $userData);
+                $this->saveAnswer($categories, $question_id, $answer, $userData, $request->store);
             }
-            $this->saveStatusUserAnswers($request->user_id);
+            $this->saveStatusUserAnswers($request->user_id, $request->store, $request->supervisor_id);
             return redirect(route('home'))->with('success', 'Respostas salvas com sucesso!');
         } catch (\Throwable $th) {
             dd($th);
@@ -37,11 +40,16 @@ class SaveAnswers extends Controller
         }
     }
 
-    private function saveAnswer($categories, $question_id, $answer, $userData)
+
+    public function getQuestionsCategories()
     {
 
-        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
+        return (new SaveAnswers())->getQuestionsCategories();
+    }
 
+
+    public function saveAnswer($categories, $question_id, $answer, $userData, $store)
+    {
         $question = collect($categories)->firstWhere('id', $question_id);
 
         if ($question) {
@@ -54,7 +62,7 @@ class SaveAnswers extends Controller
                     SaveUserAnswers::create(array_merge($userData, $answerData, [
                         'answer_id' => $answer,
                         'answer_text' => null,
-                        'store' => $statusAnswers->LOJA
+                        'store' => $store
                     ]));
                 } catch (\Throwable $th) {
                     return back()->with('error', 'Erro ao salvar respostas!');
@@ -64,7 +72,7 @@ class SaveAnswers extends Controller
                     SaveUserAnswers::create(array_merge($userData, $answerData, [
                         'answer_id' => null,
                         'answer_text' => $answer,
-                        'store' => $statusAnswers->LOJA
+                        'store' => $store
                     ]));
                 } catch (\Throwable $th) {
 
@@ -74,60 +82,16 @@ class SaveAnswers extends Controller
         }
     }
 
-    private function saveStatusUserAnswers($user_id)
+    private function saveStatusUserAnswers($user_id, $store, $supervisor)
     {
-
-        $seller = $this->getManager($user_id);
-
-        $supervisor = null;
-
-        if ($seller) {
-            $supervisorBase =  $this->getUserAnswersStatus(Auth::user()->id)->first();
-
-            $supervisor = User::where('seller', $supervisorBase['SUPERVISOR'])->first();
-        }
-
 
         StatusUserAnswers::create([
             'user_id' => $user_id,
-            'supervisor' => $supervisor->id,
-            'store' => $supervisorBase['LOJA'],
+            'supervisor' => $supervisor,
+            'store' => $store,
             'month' => now()->format('m'),
             'year' => now()->format('Y'),
             'created_at' => now()->format('d-m-Y'),
         ]);
-    }
-
-
-    public function getManager($user_id)
-    {
-        $seller = User::where('id', $user_id)->first();
-        return Sellers::where('gerente_atual', $seller->seller)->where('data_saida', null)->first();
-    }
-
-
-    public function getUserAnswersStatus($user_id)
-    {
-        return (new StatusAnswers())->getUserAnswersStatus($user_id);
-    }
-
-
-    public function getQuestionsCategories()
-    {
-        $reviews = new Reviews();
-        $typeQuestions = $reviews->getTypeQuestions();
-        $questions = $reviews->getQuestions();
-
-
-        foreach ($questions as &$question) {
-            foreach ($typeQuestions as $type) {
-                if ($question['type_id'] == $type['id']) {
-                    $question['type_description'] = $type['description'];
-                    break;
-                }
-            }
-        }
-
-        return $questions;
     }
 }

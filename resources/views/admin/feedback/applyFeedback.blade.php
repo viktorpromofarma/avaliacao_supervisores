@@ -9,31 +9,22 @@
                     <h1 class="text-lg font-semibold">Avaliação de Liderança de {{ $userData['display_name'] }}</h1>
                     <h1 class="font-semibold text-md">Data de Avaliação: {{ now()->format('d/m/Y') }}</h1>
                 </div>
-
-                <!-- Campos ocultos -->
                 <input type="hidden" value="{{ $userData['id'] }}" name="user_id">
                 <input type="hidden" value="{{ $month }}" name="month">
                 <input type="hidden" value="{{ $year }}" name="year">
-
-                <!-- Comentários em Destaque -->
                 <x-aesthetic.divider name="Comentários em Destaque" />
-
                 @foreach ($classificacoes as $key => $classificacao)
                     <div class="mt-8 mb-6">
                         <h2 class="mb-4 text-xl font-semibold text-red-500">{{ $classificacao }}</h2>
-
                         @foreach ($comentarios as $comentario)
                             @if ($comentario['classificacao_id'] == $key)
                                 <div class="px-1 py-1">
                                     <input type="checkbox" name="comentarios[{{ $comentario['id'] }}]"
                                         value="{{ $comentario['id'] }}">
                                     <label class="text-sm font-semibold">{{ $comentario['comentario'] }}</label>
-
                                 </div>
                             @endif
                         @endforeach
-
-                        <!-- Campo para adicionar comentários adicionais -->
                         <div class="mt-4">
                             <div class="flex items-center gap-4">
                                 <label for="qtdCmtAdicClassi_{{ $key }}" class="text-sm font-bold text-black">
@@ -51,11 +42,8 @@
                         <div id="textareaContainer_{{ $key }}" class="mt-4"></div>
                     </div>
                 @endforeach
-
-                <!-- Pontos Positivos -->
                 <div class="mt-8 mb-8">
                     <x-aesthetic.divider name="Pontos Positivos" />
-
                     <div class="mt-4">
                         <div class="flex items-center gap-4">
                             <x-inputs.label for="pontosPositivos" text=" Defina a quantidade:"
@@ -74,14 +62,12 @@
 
                 <div class="mt-8 mb-8">
                     <x-aesthetic.divider name="Pontos para Melhorar" />
-
                     <div class="mt-4">
                         <div class="flex items-center gap-4">
                             <x-inputs.label for="pontosMelhorar" text=" Defina a quantidade:"
                                 class="text-sm font-bold text-black" />
                             <x-inputs.input id="pontosMelhorar" name="pontosMelhorar" type="number" placeholder=""
                                 class="w-24 p-2 border border-red-300 rounded " />
-
                             <button type="button" onclick="generatePontosMelhorar('pontosMelhorar')"
                                 class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
                                 Gerar
@@ -90,7 +76,6 @@
                     </div>
                     <div id="pontosMelhorarContainer" class="mt-4"></div>
                 </div>
-
                 <div class="mt-8 mb-8">
                     <x-aesthetic.divider name="Recomendações" />
                     <div class="mt-4">
@@ -99,7 +84,6 @@
                                 class="text-sm font-bold text-black" />
                             <x-inputs.input id="recomendacoes" name="recomendacoes" type="number" placeholder=""
                                 class="w-24 p-2 border border-red-300 rounded " />
-
                             <button type="button" onclick="generateRecomendacoes('recomendacoes')"
                                 class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
                                 Gerar
@@ -108,17 +92,13 @@
                     </div>
                     <div id="recomendacoesContainer" class="mt-4"></div>
                 </div>
-
                 <div class="mt-8 mb-4">
                     <x-aesthetic.divider name="Conclusão" />
-
                     <div class="mt-4">
                         <textarea name="conclusao" class="w-full p-2 border border-gray-300 rounded" maxlength="255" cols="30"
                             rows="4" placeholder="Sua resposta..." style="resize: none;"></textarea>
                     </div>
-
                 </div>
-                <!-- Botão de envio -->
                 <button type="submit"
                     class="px-4 py-2 mt-6 font-bold text-white bg-green-500 rounded hover:bg-green-700">
                     Salvar o Feedback
@@ -126,8 +106,6 @@
             </fieldset>
         </form>
     </div>
-
-    <!-- Scripts -->
     <script src="{{ asset('js/generateTextAreaFeedback.js') }}"></script>
     <script src="{{ asset('js/generatePontosPositivos.js') }}"></script>
     <script src="{{ asset('js/generatePontosMelhorar.js') }}"></script>

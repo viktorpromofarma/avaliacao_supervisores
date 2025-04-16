@@ -20,8 +20,6 @@ class VerifyUsers extends Controller
         $getSeller = $this->getSeller($seller);
 
 
-
-
         if ($getUser == false) {
 
             if ($getSeller == false) {
@@ -46,7 +44,7 @@ class VerifyUsers extends Controller
     }
     public function getSellerProcfit($seller)
     {
-        return $sellerProcit = SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)
+        return  SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)
             ->whereIn('matricula', [3082, 4971, 2446])
             ->Exists();
     }

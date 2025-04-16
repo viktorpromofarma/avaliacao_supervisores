@@ -38,8 +38,8 @@
                             class="block text-xl font-bold text-gray-700" />
                         <x-inputs.select id="generalSupervisor" name="generalSupervisor"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="1">Sim, Disponibilizar questão para avaliar o supervisor geral.</option>
-                            <option value="0">Não, Disponibilizar questão apenas para os supervisores regionais.
+                            <option value="S">Sim, Disponibilizar questão para avaliar o supervisor geral.</option>
+                            <option value="N">Não, Disponibilizar questão apenas para os supervisores regionais.
                             </option>
                         </x-inputs.select>
                     </div>
@@ -94,7 +94,7 @@
                                 </td>
                                 <td class="px-4 py-2 font-bold text-justify">{{ $question['description'] }} </td>
                                 <td class="px-4 py-2 font-bold text-center">
-                                    {{ $question['supervisor_geral_question'] == 1 ? 'Sim' : 'Não' }}
+                                    {{ $question['supervisor_geral_question'] == 'S' ? 'Sim' : 'Não' }}
                                 </td>
 
                                 <td class="px-4 py-2 font-bold text-center">{{ $question['type_description'] }} </td>

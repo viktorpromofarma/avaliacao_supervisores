@@ -1,27 +1,12 @@
 <?php
 
-use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Settings\Period;
-use App\Http\Controllers\Data\SaveAnswers;
-use App\Http\Controllers\Question\Questions;
-use App\Http\Controllers\Settings\Categories;
-use App\Http\Controllers\Admin\Generate_Feedback;
-use App\Http\Controllers\Admin\Evaluation_History;
 use App\Http\Controllers\Authentication\FirstAccess;
-use App\Http\Controllers\Admin\Feedback\ApplyFeedback;
 use App\Http\Controllers\Authentication\CreateAccount;
-use App\Http\Controllers\History\FilteredManagerReview;
 use App\Http\Controllers\Authentication\LoginController;
-use App\Http\Controllers\Admin\Feedback\Feedback_History;
-use App\Http\Controllers\Admin\Feedback\SaveApplyFeedback;
-use App\Http\Controllers\History\Average\SupervisorAverage;
-use App\Http\Controllers\Admin\Feedback\ShowFeedbackSupervisor;
-use App\Http\Controllers\History\Average\SupervisorAverageData;
-use App\Http\Controllers\Settings\Questions as QuestionsSettings;
-use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
 use App\Http\Controllers\User\Security\Profile;
 
 
@@ -39,46 +24,16 @@ Route::post('/create-account', [CreateAccount::class, 'store'])->name('create-ac
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [loginController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/questions', [Questions::class, '__invoke'])->name('questions');
-    Route::post('/save-answers', [SaveAnswers::class, 'store'])->name('save-answers');
-
-
-    Route::get('/settings', [Period::class, 'index'])->name('settings.period');
-    Route::post('/settings/period', [Period::class, 'store'])->name('settings.period.store');
-    Route::delete('/settings/period/{id}', [Period::class, 'destroy'])->name('settings.period.destroy');
-
-    Route::get('/settings/categories', [Categories::class, 'index'])->name('settings.categories');
-    Route::post('/settings/categories/create', [Categories::class, 'store'])->name('settings.categories.store');
-    Route::delete('/settings/categories/{id}', [Categories::class, 'destroy'])->name('settings.categories.destroy');
-    Route::get('/settings/categories/{id}', [Categories::class, 'edit'])->name('settings.categories.edit');
-    Route::post('/settings/edit/categories', [EditCategories::class, 'update'])->name('settings.categories.update');
-
-
-    Route::get('/settings/questions', [QuestionsSettings::class, 'index'])->name('settings.questions');
-    Route::post('/settings/questions/create', [QuestionsSettings::class, 'store'])->name('settings.questions.store');
-    Route::delete('/settings/questions/{id}', [QuestionsSettings::class, 'destroy'])->name('settings.questions.destroy');
-
-
-    Route::get('/admin/evaluation-history', [Evaluation_History::class, 'index'])->name('admin.evaluation_history');
-    Route::get('/admin/feedback-history', [Feedback_History::class, 'index'])->name('admin.feedback_history');
-    Route::get('/admin/generate-feedback', [Generate_Feedback::class, 'index'])->name('admin.generate_feedback');
-
-
-    Route::post('/reviews/manager', [FilteredManagerReview::class, 'index'])->name('reviews.my-reviews');
-
-
-    Route::get('/average/supervisor', [SupervisorAverage::class, 'index'])->name('average.supervisor');
-    Route::post('/average/supervisor/filter', [SupervisorAverageData::class, 'index'])->name('average.supervisor_filter');
-
-
-    Route::post('/feedback/apply', [ApplyFeedback::class, 'index'])->name('feedback.apply');
-    Route::delete('feedback/destroy/{id}', [ApplyFeedback::class, 'destroy'])->name('feedback.destroy');
-    Route::post('/feedback/save', [SaveApplyFeedback::class, 'store'])->name('feedback.save');
-
-
-    Route::post('/feedback/show', [ShowFeedbackSupervisor::class, 'index'])->name('feedback.show');
-
-
     Route::get('/user/profile', [Profile::class, 'index'])->name('user.profile');
     Route::post('/user/profile/update', [Profile::class, 'updateUser'])->name('user.profile.update');
+
+    require __DIR__ . '/files/admin.php'; // Importa as rotas do admin.php
+    require __DIR__ . '/files/manager.php'; // Importa as rotas do manager.php
+    require __DIR__ . '/files/regional.php'; // Importa as rotas do regional.php
+    require __DIR__ . '/files/supervisor.php'; // Importa as rotas do supervisor.php
+    require __DIR__ . '/files/multiAcess.php'; // Importa as rotas do multiAcess.php
+    require __DIR__ . '/files/root.php'; // Importa as rotas do root.php
+
+
+
 });
