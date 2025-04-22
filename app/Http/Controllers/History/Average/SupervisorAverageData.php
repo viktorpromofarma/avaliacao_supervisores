@@ -20,27 +20,22 @@ class SupervisorAverageData extends SupervisorAverageFilter
     {
 
         $userData = $this->getUserData($request->supervisor);
-        $supervisorStores = $this->getSupervisorStore($userData->seller);
         $supervisorAverage = $this->getSupervisorAverageData($request);
         $supervisorStoresAnswers = $this->getSupervisoreStoreAnswers($request->supervisor, $request->month, $request->year);
 
-
         return view('supervisors.average.supervisorAverageData', [
             'userData' => $userData,
-            'supervisorStores' => $supervisorStores,
             'supervisorAverages' => $supervisorAverage,
             'supervisorStoresAnswers' => $supervisorStoresAnswers,
             'month' => $request->month,
             'year' => $request->year
         ]);
     }
-
     public function getSupervisorAverageData(Request $request)
     {
+
         $baseSupervisorAverage = $this->getSupervisorAverage($request->supervisor, $request->month, $request->year);
         $averageByCategory = $this->getAverageByCategory($baseSupervisorAverage);
-
-
 
         return $averageByCategory;
     }
@@ -52,11 +47,7 @@ class SupervisorAverageData extends SupervisorAverageFilter
     }
 
 
-    public function getSupervisorStore($id)
-    {
-        $this->initializeUserData();
-        return $this->userData->getSupervisorStore($id);
-    }
+
 
     public function getSupervisoreStoreAnswers($id, $month, $year)
     {

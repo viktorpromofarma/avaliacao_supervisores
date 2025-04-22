@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Feedback;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Admin\Feedback\FeedbackSupervisorDetails;
 
 class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
 {
     public function index(Request $request)
     {
+
+
         $metrics = $this->getMetrics($request->feedback_status_id);
         $user = $this->getUserData($request->feedback_status_id);
         $feedback = $this->getSupervisorFeedback($request->feedback_status_id);
@@ -17,9 +21,6 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
         $positivePoints = $this->getSupervisorPositivePoints($request->feedback_status_id);
         $pointsToImprove = $this->getSupervisorpointsToImprove($request->feedback_status_id);
         $recomendations = $this->getSupervisorRecomendations($request->feedback_status_id);
-
-
-
 
 
         return view('admin.feedback.showFeedbackSupervisor', [
@@ -34,6 +35,10 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
 
         ]);
     }
+
+
+
+
 
     public function getFeedbackMetrics(Request $request)
     {

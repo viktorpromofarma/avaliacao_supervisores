@@ -11,12 +11,14 @@ use App\Models\StatusUserAnswers;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\History\Reviews;
 use App\Http\Controllers\Verification\StatusAnswers;
-
+use Termwind\Components\Dd;
 
 class SaveAnswers extends Controller
 {
     public function store(Request $request)
     {
+
+
 
         $categories = $this->getQuestionsCategories();
         $data = $request->except(['_token', 'user_id']);
@@ -42,6 +44,7 @@ class SaveAnswers extends Controller
 
         $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
 
+
         $question = collect($categories)->firstWhere('id', $question_id);
 
         if ($question) {
@@ -51,7 +54,7 @@ class SaveAnswers extends Controller
             ];
             if ($question['type_description'] == 'Múltipla Escolha') {
                 try {
-                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+                    SaveUserAnswers::UpdateOrCreate(array_merge($userData, $answerData, [
                         'answer_id' => $answer,
                         'answer_text' => null,
                         'store' => $statusAnswers->LOJA
@@ -61,7 +64,7 @@ class SaveAnswers extends Controller
                 }
             } else {
                 try {
-                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+                    SaveUserAnswers::UpdateOrCreate(array_merge($userData, $answerData, [
                         'answer_id' => null,
                         'answer_text' => $answer,
                         'store' => $statusAnswers->LOJA
@@ -88,7 +91,9 @@ class SaveAnswers extends Controller
         }
 
 
-        StatusUserAnswers::create([
+
+
+        StatusUserAnswers::UpdateOrCreate([
             'user_id' => $user_id,
             'supervisor' => $supervisor->id,
             'store' => $supervisorBase['LOJA'],

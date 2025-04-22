@@ -85,6 +85,7 @@ class Questions extends Controller
     {
         $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
 
+
         $regional = new UserData();
 
 

@@ -11,25 +11,32 @@ use Illuminate\Support\Facades\Auth;
 
 class Evaluation_History extends Controller
 {
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->user = Auth::user();
+    }
+
+
     public function index(Request $request)
     {
 
-
-
         $filters = $request->only(['month', 'year', 'storeStart', 'storeEnd', 'manager', 'supervisor']);
         $statusUser = $this->getStatusUser($filters);
-        return view('admin.evaluation_history', ['statusUser' => $statusUser]);
+
+        return view('admin.evaluation_history', [
+            'statusUser' => $statusUser,
+            'user' => $this->user
+        ]);
     }
 
-    public function getUserManager()
-    {
-        $userData = new UserData();
-        return $userData->getManager(Auth::user()->seller);
-    }
+
+
 
     public function getStatusUser($filters = [])
     {
-        $user = $this->getUserManager();
 
 
 
@@ -50,10 +57,6 @@ class Evaluation_History extends Controller
                 'c.seller as supervisor_register'
             );
 
-
-
-
-        // Aplica os filtros de forma condicional
         if (!empty($filters['month'])) {
             $query->where('status_user_answers.month', $filters['month']);
         }
@@ -84,9 +87,11 @@ class Evaluation_History extends Controller
             });
         }
 
-        if ($user) {
+        if (!$this->user->accessRole->admin) {
             $query->where('status_user_answers.user_id ', Auth::user()->id);
         }
+
+
 
         $query
             ->orderBy('status_user_answers.month', 'asc')

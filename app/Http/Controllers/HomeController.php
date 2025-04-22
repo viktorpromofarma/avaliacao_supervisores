@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\Models\Sellers;
 use App\Http\Controllers\Verification\StatusAnswers;
-use Termwind\Components\Dd;
 
 class HomeController extends Controller
 {
@@ -19,7 +16,6 @@ class HomeController extends Controller
 
         return view('home', [
             'user' => Auth::user(),
-
             'validationPeriodoAnswers' => $validationPeriodoAnswers
 
         ]);
@@ -37,8 +33,18 @@ class HomeController extends Controller
 
     public function validationPeriodoAnswers()
     {
+        $user = Auth::user();
 
-        $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
+        if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin) {
+            $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
+        }
+
+        if ($user->accessRole->gerentes) {
+            $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
+        }
+
+
+
         $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
 
         if ($statusPeriod == null) {

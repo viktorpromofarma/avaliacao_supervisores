@@ -1,7 +1,7 @@
 <x-mains.navigation />
 <x-mains.app>
 
-    <div style="margin-top: 2%;">
+    <div>
         <x-filters.filterHistory route="{{ route('average.supervisor') }}" title="Média de avaliação">
             <x-slot name="slot">
 
@@ -24,7 +24,7 @@
             </x-slot>
 
             <x-slot name="table">
-                <div class="p-8 mt-6 mb-8 overflow-x-auto">
+                <div class="p-8  mb-8 overflow-x-auto">
                     <div class="overflow-y-auto rounded-lg max-h-96">
                         <table class="min-w-full bg-white border shadow-md striped">
                             <thead class="text-white bg-red-500">

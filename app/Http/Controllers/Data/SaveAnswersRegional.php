@@ -35,7 +35,7 @@ class SaveAnswersRegional extends Controller
             $this->saveStatusUserAnswers($request->user_id, $request->store, $request->supervisor_id);
             return redirect(route('home'))->with('success', 'Respostas salvas com sucesso!');
         } catch (\Throwable $th) {
-            dd($th);
+
             return back()->with('error', 'Erro ao salvar respostas!');
         }
     }
@@ -59,7 +59,8 @@ class SaveAnswersRegional extends Controller
             ];
             if ($question['type_description'] == 'Múltipla Escolha') {
                 try {
-                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+
+                    SaveUserAnswers::UpdateOrCreate(array_merge($userData, $answerData, [
                         'answer_id' => $answer,
                         'answer_text' => null,
                         'store' => $store
@@ -69,7 +70,7 @@ class SaveAnswersRegional extends Controller
                 }
             } else {
                 try {
-                    SaveUserAnswers::create(array_merge($userData, $answerData, [
+                    SaveUserAnswers::UpdateOrCreate(array_merge($userData, $answerData, [
                         'answer_id' => null,
                         'answer_text' => $answer,
                         'store' => $store
@@ -85,7 +86,7 @@ class SaveAnswersRegional extends Controller
     private function saveStatusUserAnswers($user_id, $store, $supervisor)
     {
 
-        StatusUserAnswers::create([
+        StatusUserAnswers::UpdateOrCreate([
             'user_id' => $user_id,
             'supervisor' => $supervisor,
             'store' => $store,

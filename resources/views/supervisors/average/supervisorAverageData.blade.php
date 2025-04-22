@@ -11,15 +11,6 @@
                     <h1 class="font-bold text-md">Período de avaliação: <span
                             class="text-red-500">{{ $month }}/{{ $year }}</span></h1>
 
-                    <h1 class="font-bold text-md">Lojas Supervisionadas:
-                        @foreach ($supervisorStores as $supervisorStore)
-                            <span class="text-red-500">{{ $supervisorStore['LOJA'] }}</span>
-                            @if (!$loop->last)
-                                ,
-                            @endif
-                        @endforeach
-                    </h1>
-
                 </div>
                 <div class="mt-4 mb-4">
                     <hr class="border-red-300 border-t-1">

@@ -6,9 +6,9 @@
 <div class="flex flex-wrap justify-center ">
 
     <!-- card 1 -->
-    <div class="max-w-sm p-4">
+    <div class="max-w-sm p-4 mt-4">
         <div class="flex flex-col">
-            <form action="{{ $route }}" method="GET" class="w-full max-w-md " style="margin-top: 1%;">
+            <form action="{{ $route }}" method="GET" class="w-full max-w-md ">
                 @csrf
                 <fieldset class="p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md ">
                     <legend class="text-2xl font-bold text-center">{{ $title }}</legend>
