@@ -17,7 +17,8 @@
 
                 <div class="grid grid-cols-1 gap-4">
                     <div class="mb-2">
-                        <x-inputs.label for="category" text="Categoria" class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.label for="category" text="Categoria"
+                            class="block mb-1 text-xl font-bold text-gray-700" />
                         <x-inputs.select id="category" name="category"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md">
                             @foreach ($categories as $category)
@@ -51,7 +52,7 @@
                                 <label class="flex items-center gap-2">
                                     <x-inputs.radio type="radio" id="{{ $typeQuestion->description }}"
                                         name="type_question" value="{{ $typeQuestion->id }}"
-                                        class="text-red-500 form-radio" />
+                                        class="text-red-500 form-radio " />
                                     <span class="font-bold text-gray-700">{{ $typeQuestion->description }}</span>
                                     <x-inputs.input id="num_choices" name="num_choices" type="number" min="1"
                                         class="hidden w-20 px-1 py-1 border border-gray-300 rounded-md" required />

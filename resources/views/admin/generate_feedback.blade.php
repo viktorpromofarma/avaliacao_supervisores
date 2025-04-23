@@ -7,7 +7,7 @@
     <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
         <div>
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold">Supervisores para aplicar Feedback</legend>
+                <legend class="text-2xl font-bold">Aplicação de Feedback</legend>
 
                 <div class="flex justify-center overflow-x-auto">
                     <table class="w-full text-center border-collapse">

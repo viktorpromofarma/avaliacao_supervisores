@@ -6,7 +6,7 @@
 
     <div class="flex flex-col items-center mb-4" style="margin-top: 4%;">
         <fieldset class="w-full max-w-2xl p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-            <legend class="text-2xl font-bold ">Supervisor Avaliado</legend>
+            <legend class="text-2xl font-bold ">Avaliação do supervisor Geral</legend>
             <h1 class="text-lg font-semibold">Nome: {{ $supervisorInfo['NOME_SUPERVISOR'] }}
             </h1>
             <h1 class="text-lg font-semibold">Loja de referência: {{ $supervisorInfo['LOJA'] }} </h1>
@@ -27,7 +27,7 @@
                                 @foreach ($questao['respostas'] as $resposta)
                                     <label class="block">
                                         <input type="radio" name="{{ $questao['id'] }}" value="{{ $resposta['id'] }}"
-                                            class="mr-2">
+                                            class="mr-2 border border-red-700">
                                         {{ $resposta['resposta'] }}
                                     </label>
                                 @endforeach

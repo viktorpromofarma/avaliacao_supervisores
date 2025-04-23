@@ -13,14 +13,17 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
     {
 
 
-        $metrics = $this->getMetrics($request->feedback_status_id);
-        $user = $this->getUserData($request->feedback_status_id);
-        $feedback = $this->getSupervisorFeedback($request->feedback_status_id);
-        $totalAnswersManager = $this->getTotalAnswer($request->feedback_status_id);
-        $conclusion = $this->getSupervisorConclusion($request->feedback_status_id)->conclusion;
-        $positivePoints = $this->getSupervisorPositivePoints($request->feedback_status_id);
-        $pointsToImprove = $this->getSupervisorpointsToImprove($request->feedback_status_id);
-        $recomendations = $this->getSupervisorRecomendations($request->feedback_status_id);
+
+        $metrics = $this->getMetrics($request->feedback_status_id, $request->month, $request->year);
+        $user = $this->getUserData($request->feedback_status_id, $request->month, $request->year);
+        $feedback = $this->getSupervisorFeedback($request->feedback_status_id, $request->month, $request->year);
+        $totalAnswersManager = $this->getTotalAnswer($request->feedback_status_id, $request->month, $request->year);
+        $conclusion = $this->getSupervisorConclusion($request->feedback_status_id, $request->month, $request->year)->conclusion;
+        $positivePoints = $this->getSupervisorPositivePoints($request->feedback_status_id, $request->month, $request->year);
+        $pointsToImprove = $this->getSupervisorpointsToImprove($request->feedback_status_id, $request->month, $request->year);
+        $recomendations = $this->getSupervisorRecomendations($request->feedback_status_id, $request->month, $request->year);
+
+
 
 
         return view('admin.feedback.showFeedbackSupervisor', [
@@ -42,37 +45,37 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
 
     public function getFeedbackMetrics(Request $request)
     {
-        return $this->getMetrics($request->feedback_status_id);
+        return $this->getMetrics($request->feedback_status_id, $request->month, $request->year);
     }
 
     public function SupervisorFeedback(Request $request)
     {
 
-        return $this->getSupervisorFeedback($request->feedback_status_id);
+        return $this->getSupervisorFeedback($request->feedback_status_id, $request->month, $request->year);
     }
 
-    public function getTotalAnswer($feedback_id)
+    public function getTotalAnswer($feedback_id, $month, $year)
     {
-        return $this->getDataStructure($feedback_id);
+        return $this->getDataStructure($feedback_id, $month, $year);
     }
 
-    public function getSupervisorConclusion($feedback_id)
+    public function getSupervisorConclusion($feedback_id, $month, $year)
     {
-        return $this->getConclusion($feedback_id);
+        return $this->getConclusion($feedback_id, $month, $year);
     }
 
-    public function getSupervisorPositivePoints($feedback_id)
+    public function getSupervisorPositivePoints($feedback_id, $month, $year)
     {
-        return $this->getPositivePoints($feedback_id);
+        return $this->getPositivePoints($feedback_id, $month, $year);
     }
 
-    public function getSupervisorpointsToImprove($feedback_id)
+    public function getSupervisorpointsToImprove($feedback_id, $month, $year)
     {
-        return $this->getpointsToImprove($feedback_id);
+        return $this->getpointsToImprove($feedback_id, $month, $year);
     }
 
-    public function getSupervisorRecomendations($feedback_id)
+    public function getSupervisorRecomendations($feedback_id, $month, $year)
     {
-        return $this->getRecomendations($feedback_id);
+        return $this->getRecomendations($feedback_id, $month, $year);
     }
 }

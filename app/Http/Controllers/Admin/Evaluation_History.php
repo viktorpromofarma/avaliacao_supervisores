@@ -38,8 +38,6 @@ class Evaluation_History extends Controller
     public function getStatusUser($filters = [])
     {
 
-
-
         $query = StatusUserAnswers::query()
             ->leftJoin('usuarios_avaliacao_supervisao as b', 'status_user_answers.user_id', '=', 'b.id')
             ->leftJoin('usuarios_avaliacao_supervisao as c', 'status_user_answers.supervisor', '=', 'c.id')

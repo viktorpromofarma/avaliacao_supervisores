@@ -17,6 +17,8 @@ class StatusAnswers extends Controller
     {
         $user = Auth::user();
 
+
+
         if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin) {
 
             return StatusUserAnswers::query()
@@ -38,7 +40,9 @@ class StatusAnswers extends Controller
                 })
                 ->leftjoin('status_user_answers as c', function ($join) {
                     $join->on('b.id', '=', 'c.user_id')
-                        ->on('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.loja', '=', 'c.store');
+                        ->on('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.loja', '=', 'c.store')
+                        ->where('c.month', date('m'))
+                        ->where('c.year', date('Y'));
                 })
                 ->leftjoin('period as d', function ($join) {
                     $join->on('c.month', '=', 'd.month')
@@ -47,7 +51,7 @@ class StatusAnswers extends Controller
                         ->where('d.year', date('Y'));
                 })->where('b.id', $user_id)
                 ->whereNull('c.id')
-                ->select('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.SUPERVISOR', 'NOME_SUPERVISOR', 'GERENTE_ATUAL', 'NOME', 'LOJA');
+                ->select('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.SUPERVISOR', 'NOME_SUPERVISOR', 'GERENTE_ATUAL', 'NOME', 'LOJA')->get();
         }
     }
 

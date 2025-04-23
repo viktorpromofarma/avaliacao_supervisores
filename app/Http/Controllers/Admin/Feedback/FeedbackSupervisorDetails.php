@@ -13,14 +13,17 @@ use App\Models\SaveFeedbackSupervisor;
 
 class FeedbackSupervisorDetails extends Controller
 {
-    public function getSupervisorFeedback($feedback_id)
+    public function getSupervisorFeedback($feedback_id, $month, $year)
     {
-        return StatusFeedbackSupervisor::where('id', $feedback_id)->first();
+        return StatusFeedbackSupervisor::where('id', $feedback_id)
+            ->where('month', $month)
+            ->where('year', $year)
+            ->first();
     }
 
-    public function getMetrics($feedback_id)
+    public function getMetrics($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
         $request = new Request([
             'supervisor' => $feedback->user_id,
             'month' => $feedback->month,
@@ -32,9 +35,9 @@ class FeedbackSupervisorDetails extends Controller
         return $averageData;
     }
 
-    public function getComments($feedback_id)
+    public function getComments($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
 
         $comments = SaveFeedbackSupervisor::where('user_id', $feedback->user_id)
             ->where('month', $feedback->month)->where('year', $feedback->year)
@@ -45,9 +48,9 @@ class FeedbackSupervisorDetails extends Controller
         return $comments;
     }
 
-    public function getCommentSelect($feedback_id)
+    public function getCommentSelect($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
 
         $commentSelect = SaveFeedbackSupervisor::query()
             ->Join('save_user_answers as b', 'save_supervisor_feedback.answer_id', '=', 'b.id')
@@ -68,14 +71,14 @@ class FeedbackSupervisorDetails extends Controller
         return $commentSelect;
     }
 
-    public function getUserData($feedback_id)
+    public function getUserData($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
         $user = new UserData();
         return $user->getUserData($feedback->user_id);
     }
 
-    public function getTotalAnswersForms($feedback_id)
+    public function getTotalAnswersForms($feedback_id, $month, $year)
     {
 
         $totalManagers = StatusFeedbackSupervisor::query()
@@ -85,6 +88,8 @@ class FeedbackSupervisorDetails extends Controller
                     ->on('status_supervisor_feedback.year', '=', 'status_user_answers.year');
             })
             ->where('status_supervisor_feedback.id', $feedback_id)
+            ->where('status_user_answers.month', $month)
+            ->where('status_user_answers.year', $year)
             ->select(
                 DB::raw('COUNT(DISTINCT status_user_answers.user_id) AS total_supervisores')
             )->first();
@@ -93,9 +98,12 @@ class FeedbackSupervisorDetails extends Controller
         return $totalManagers;
     }
 
-    public function getPercentAnswers($feedback_id)
+    public function getPercentAnswers($feedback_id, $month, $year)
     {
-        $totalManagers = $this->getTotalAnswersForms($feedback_id);
+
+        $totalManagers = $this->getTotalAnswersForms($feedback_id, $month, $year);
+
+
 
         $results = StatusFeedbackSupervisor::query()
             ->join('status_user_answers as b', function ($join) {
@@ -106,6 +114,7 @@ class FeedbackSupervisorDetails extends Controller
             ->join('save_user_answers as c', function ($join) {
                 $join->on('b.user_id', '=', 'c.user_id')
                     ->on('b.created_at', '=', 'c.created_at')
+                    ->on('b.store', '=', 'c.store')
                     ->whereNotNull('c.answer_id');
             })
             ->join('questions_supervisors_assessment as qsa', 'c.question_id', '=', 'qsa.id')
@@ -119,18 +128,22 @@ class FeedbackSupervisorDetails extends Controller
                 'c.answer_id',
                 'asa.description as answer_description',
                 DB::raw('COUNT(DISTINCT c.user_id) AS total_respostas'),
-                DB::raw('CONVERT(NUMERIC(15,2),(COUNT(DISTINCT c.user_id) * 100.00) / ' . $totalManagers->total_supervisores . ' )  AS porcentagem')
+                DB::raw('CONVERT(NUMERIC(15,2), (COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY qsa.id)))  AS porcentagem')
             )
             ->where('status_supervisor_feedback.id', $feedback_id)
+            ->where('b.month', $month)
+            ->where('b.year', $year)
             ->groupBy('cqsa.id', 'cqsa.description', 'c.answer_id', 'asa.description', 'qsa.id', 'qsa.description')
             ->get();
+
+
 
         return $results;
     }
 
-    public function getConclusion($feedback_id)
+    public function getConclusion($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
         $conclusion = SaveFeedbackSupervisor::query()
             ->where('user_id', $feedback->user_id)
             ->where('month', $feedback->month)
@@ -142,9 +155,9 @@ class FeedbackSupervisorDetails extends Controller
         return $conclusion;
     }
 
-    public function getPositivePoints($feedback_id)
+    public function getPositivePoints($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
         $positivePoints = SaveFeedbackSupervisor::query()
             ->where('user_id', $feedback->user_id)
             ->where('month', $feedback->month)
@@ -156,9 +169,9 @@ class FeedbackSupervisorDetails extends Controller
         return $positivePoints;
     }
 
-    public function getpointsToImprove($feedback_id)
+    public function getpointsToImprove($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id, $month, $year);
         $pointsToImprove = SaveFeedbackSupervisor::query()
             ->where('user_id', $feedback->user_id)
             ->where('month', $feedback->month)
@@ -170,9 +183,9 @@ class FeedbackSupervisorDetails extends Controller
         return $pointsToImprove;
     }
 
-    public function getRecomendations($feedback_id)
+    public function getRecomendations($feedback_id, $month, $year)
     {
-        $feedback = $this->getSupervisorFeedback($feedback_id);
+        $feedback = $this->getSupervisorFeedback($feedback_id,  $month, $year);
         $recomendation = SaveFeedbackSupervisor::query()
             ->where('user_id', $feedback->user_id)
             ->where('month', $feedback->month)
@@ -184,11 +197,13 @@ class FeedbackSupervisorDetails extends Controller
         return $recomendation;
     }
 
-    public function getDataStructure($feedback_id)
+    public function getDataStructure($feedback_id, $month, $year)
     {
-        $base = $this->getPercentAnswers($feedback_id);
-        $comments = $this->getComments($feedback_id);
-        $commentSelect = $this->getCommentSelect($feedback_id);
+        $base = $this->getPercentAnswers($feedback_id, $month, $year);
+
+
+        $comments = $this->getComments($feedback_id,    $month, $year);
+        $commentSelect = $this->getCommentSelect($feedback_id, $month, $year);
         $structuredData = [];
 
         // Adiciona as questões e respostas ao array estruturado

@@ -28,7 +28,7 @@
                 </div>
             </fieldset>
         </form>
-        <fieldset class="w-full max-w-2xl p-6 border border-red-500 rounded-lg shadow-md g-white">
+        <fieldset class="w-full max-w-2xl p-6 mt-8 border border-red-500 rounded-lg shadow-md g-white">
             <legend class="text-2xl font-bold">Períodos Cadastrados</legend>
             <div class="flex justify-center bg-white border border-gray-200 rounded-lg">
                 <table class="w-full text-center ">

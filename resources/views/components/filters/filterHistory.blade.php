@@ -11,7 +11,7 @@
             <form action="{{ $route }}" method="GET" class="w-full max-w-md ">
                 @csrf
                 <fieldset class="p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md ">
-                    <legend class="text-2xl font-bold text-center">{{ $title }}</legend>
+                    <legend class="flex justify-center w-full text-2xl font-bold">{{ $title }}</legend>
                     <div class="grid grid-cols-1 gap-2">
                         <div class="mb-2">
                             {{ $slot }} <!-- Slot padrão para filtros -->

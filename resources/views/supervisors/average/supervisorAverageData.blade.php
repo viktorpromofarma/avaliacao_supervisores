@@ -4,9 +4,9 @@
     <div class="flex flex-col items-center" style="margin-top: 5%; margin-bottom: 5%">
         <div class="w-full max-w-2xl">
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold">Médias de avaliação do Supervisor</legend>
+                <legend class="text-2xl font-bold">Médias de avaliação</legend>
                 <div class="mb-8">
-                    <h1 class="font-bold text-md">Supervisor: <span
+                    <h1 class="font-bold text-md">Avaliado: <span
                             class="text-red-500">{{ $userData['display_name'] }}</span></h1>
                     <h1 class="font-bold text-md">Período de avaliação: <span
                             class="text-red-500">{{ $month }}/{{ $year }}</span></h1>

@@ -18,18 +18,18 @@
                     </div>
                 </div>
 
-                <x-inputs.label for="supervisor" text="Supervisor" class="block font-bold text-gray-700 text-md" />
-                <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome ou matrícula"
+                <x-inputs.label for="supervisor" text="Avaliado" class="block font-bold text-gray-700 text-md" />
+                <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome"
                     class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
             </x-slot>
 
             <x-slot name="table">
-                <div class="p-8  mb-8 overflow-x-auto">
+                <div class="p-8 mb-8 overflow-x-auto">
                     <div class="overflow-y-auto rounded-lg max-h-96">
                         <table class="min-w-full bg-white border shadow-md striped">
                             <thead class="text-white bg-red-500">
                                 <tr>
-                                    <th class="px-4 py-2 text-xl text-center">Supervisor</th>
+                                    <th class="px-4 py-2 text-xl text-center">Avaliado</th>
                                     <th class="px-4 py-2 text-xl text-center">Período</th>
                                     <th class="px-4 py-2 text-xl text-center">Relatório</th>
                                 </tr>
@@ -44,6 +44,8 @@
                                                 @csrf
                                                 <input type="hidden" name="feedback_status_id"
                                                     value="{{ $feedbacks->id }}">
+                                                <input type="hidden" name="month" value="{{ $feedbacks->month }}">
+                                                <input type="hidden" name="year" value="{{ $feedbacks->year }}">
                                                 <button type="submit"
                                                     class="px-2 py-2 mt-4 font-bold text-white bg-green-500 rounded hover:bg-green-700">
                                                     Visualizar

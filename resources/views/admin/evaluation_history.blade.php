@@ -33,10 +33,10 @@
                         </div>
                     </div>
                     <x-inputs.label for="manager" text="Avaliador" class="block font-bold text-gray-700 text-md" />
-                    <x-inputs.input id="manager" name="manager" type="text" placeholder="Nome ou matrícula"
+                    <x-inputs.input id="manager" name="manager" type="text" placeholder="Nome"
                         class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
                     <x-inputs.label for="supervisor" text="Avaliado" class="block font-bold text-gray-700 text-md" />
-                    <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome ou matrícula"
+                    <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome"
                         class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
                 @endif
             </x-slot>

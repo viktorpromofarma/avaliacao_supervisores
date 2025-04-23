@@ -9,6 +9,7 @@ class Question extends Model
     protected $table = 'questions_supervisors_assessment';
 
     protected $fillable = [
+        'id',
         'description',
         'type_id',
         'supervisor_geral_question',

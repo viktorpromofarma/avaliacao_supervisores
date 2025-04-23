@@ -25,7 +25,7 @@
                                 @foreach ($questao['respostas'] as $resposta)
                                     <label class="block">
                                         <input type="radio" name="{{ $questao['id'] }}" value="{{ $resposta['id'] }}"
-                                            class="mr-2">
+                                            class="mr-2 border border-red-700">
                                         {{ $resposta['resposta'] }}
                                     </label>
                                 @endforeach

@@ -4,7 +4,7 @@
         <form action="{{ route('feedback.save') }}" method="POST" class="w-full max-w-2xl ">
             @csrf
             <fieldset class="w-full p-6 mb-8 bg-white border border-red-500 rounded-lg shadow-md">
-                <legend class="text-2xl font-bold">Feedback para Supervisor</legend>
+                <legend class="text-2xl font-bold">Aplicação de Feedback</legend>
                 <div class="mb-8">
                     <h1 class="text-lg font-semibold">Avaliação de Liderança de {{ $userData['display_name'] }}</h1>
                     <h1 class="font-semibold text-md">Data de Avaliação: {{ now()->format('d/m/Y') }}</h1>
@@ -13,35 +13,37 @@
                 <input type="hidden" value="{{ $month }}" name="month">
                 <input type="hidden" value="{{ $year }}" name="year">
                 <x-aesthetic.divider name="Comentários em Destaque" />
-                @foreach ($classificacoes as $key => $classificacao)
+                @foreach ($classificacoes as $classificacaoId => $classificacaoNome)
                     <div class="mt-8 mb-6">
-                        <h2 class="mb-4 text-xl font-semibold text-red-500">{{ $classificacao }}</h2>
-                        @foreach ($comentarios as $comentario)
-                            @if ($comentario['classificacao_id'] == $key)
-                                <div class="px-1 py-1">
-                                    <input type="checkbox" name="comentarios[{{ $comentario['id'] }}]"
-                                        value="{{ $comentario['id'] }}">
-                                    <label class="text-sm font-semibold">{{ $comentario['comentario'] }}</label>
-                                </div>
-                            @endif
-                        @endforeach
-                        <div class="mt-4">
-                            <div class="flex items-center gap-4">
-                                <label for="qtdCmtAdicClassi_{{ $key }}" class="text-sm font-bold text-black">
-                                    Comentários resumidos:
-                                </label>
-                                <input type="number" id="qtdCmtAdicClassi_{{ $key }}"
-                                    name="qtdCmtAdicClassi_{{ $key }}" min="1" max="10"
-                                    class="w-24 p-2 border border-red-300 rounded">
-                                <button type="button" onclick="generateTextareas('{{ $key }}')"
-                                    class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
-                                    Gerar
-                                </button>
+                        <h2 class="mb-4 text-xl font-semibold text-red-500">{{ $classificacaoNome }}</h2>
+
+                        @php
+                            $questoesDaClassificacao = $comentarios
+                                ->where('classificacao_id', $classificacaoId)
+                                ->pluck('question', 'question_id')
+                                ->unique();
+                        @endphp
+
+                        @foreach ($questoesDaClassificacao as $questionId => $pergunta)
+                            <div class="pl-4 mb-4">
+                                <p class="font-semibold text-gray-700">{{ $pergunta }}</p>
+
+                                @foreach ($comentarios as $comentario)
+                                    @if ($comentario['classificacao_id'] == $classificacaoId && $comentario['question_id'] == $questionId)
+                                        <div class="px-1 py-1">
+                                            <input type="checkbox" class="mr-2 border border-red-700"
+                                                name="comentarios[{{ $comentario['id'] }}]"
+                                                value="{{ $comentario['id'] }}">
+                                            <label
+                                                class="text-sm font-semibold">{{ $comentario['comentario'] }}</label>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                        </div>
-                        <div id="textareaContainer_{{ $key }}" class="mt-4"></div>
+                        @endforeach
                     </div>
                 @endforeach
+
                 <div class="mt-8 mb-8">
                     <x-aesthetic.divider name="Pontos Positivos" />
                     <div class="mt-4">

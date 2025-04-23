@@ -9,14 +9,11 @@ use App\Http\Controllers\Settings\Categories;
 use App\Http\Controllers\Settings\Questions as QuestionsSettings;
 use App\Http\Controllers\Settings\Edit\Categories as EditCategories;
 use App\Http\Controllers\Admin\Generate_Feedback;
-use App\Http\Controllers\Admin\Evaluation_History;
 use App\Http\Controllers\Admin\Feedback\ApplyFeedback;
 use App\Http\Controllers\Admin\Feedback\Feedback_History;
 use App\Http\Controllers\Admin\Feedback\SaveApplyFeedback;
 use App\Http\Controllers\Admin\Feedback\ShowFeedbackSupervisor;
-use App\Http\Controllers\History\Average\SupervisorAverage;
-use App\Http\Controllers\History\Average\SupervisorAverageData;
-use App\Http\Controllers\History\FilteredManagerReview;
+use App\Http\Controllers\Infos\ListRegionalManager;
 
 Route::group(['middleware' => AdminAcess::class], function () {
 
@@ -42,4 +39,6 @@ Route::group(['middleware' => AdminAcess::class], function () {
     Route::post('/feedback/save', [SaveApplyFeedback::class, 'store'])->name('feedback.save');
 
     Route::post('/feedback/show', [ShowFeedbackSupervisor::class, 'index'])->name('feedback.show');
+
+    Route::get('/listRegionalManager', [ListRegionalManager::class, 'index'])->name('admin.listRegionalManager');
 });

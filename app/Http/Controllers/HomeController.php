@@ -14,6 +14,8 @@ class HomeController extends Controller
     {
         $validationPeriodoAnswers = $this->validationPeriodoAnswers();
 
+
+
         return view('home', [
             'user' => Auth::user(),
             'validationPeriodoAnswers' => $validationPeriodoAnswers
@@ -35,11 +37,13 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin) {
+        if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin || $user->accessRole->root) {
+
             $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id);
         }
 
         if ($user->accessRole->gerentes) {
+
             $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
         }
 

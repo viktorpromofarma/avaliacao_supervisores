@@ -1,7 +1,7 @@
 <x-mains.navigation />
 <x-mains.app>
 
-    <div>
+    <div style="margin-top: 2%;">
         <x-filters.filterHistory route="{{ route('average.supervisor') }}" title="Média de avaliação">
             <x-slot name="slot">
 
@@ -18,18 +18,18 @@
                     </div>
                 </div>
 
-                <x-inputs.label for="supervisor" text="Supervisor" class="block font-bold text-gray-700 text-md" />
-                <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome ou matrícula"
+                <x-inputs.label for="supervisor" text="Avaliado" class="block font-bold text-gray-700 text-md" />
+                <x-inputs.input id="supervisor" name="supervisor" type="text" placeholder="Nome"
                     class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
             </x-slot>
 
             <x-slot name="table">
-                <div class="p-8  mb-8 overflow-x-auto">
+                <div class="p-8 mb-8 overflow-x-auto">
                     <div class="overflow-y-auto rounded-lg max-h-96">
                         <table class="min-w-full bg-white border shadow-md striped">
                             <thead class="text-white bg-red-500">
                                 <tr>
-                                    <th class="px-4 py-2 text-xl text-center">Supervisor</th>
+                                    <th class="px-4 py-2 text-xl text-center">Avaliado</th>
                                     <th class="px-4 py-2 text-xl text-center">Período</th>
 
                                     <th class="px-4 py-2 text-xl text-center">Relatório</th>

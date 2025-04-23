@@ -12,18 +12,6 @@
             @if ($user->accessRole && $user->accessRole->admin === '1')
                 <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3">
 
-                    <x-navigation.options route="{{ route('admin.generate_feedback') }}"
-                        icon="<i class='fa-solid fa-file-pen fa-4x'></i>" description="Gerar Feedback" />
-
-                    <x-navigation.options route="{{ route('admin.feedback_history') }}"
-                        icon="<i class='fa-regular fa-calendar-days fa-4x'></i>" description="Histórico de feedbacks" />
-
-                    <x-navigation.options route="{{ route('average.supervisor') }}"
-                        icon="<i class='fa-solid fa-chart-line fa-4x'></i>" description="Médias de avaliação" />
-
-                    <x-navigation.options route="{{ route('admin.evaluation_history') }}"
-                        icon="<i class='fa-solid fa-user-clock fa-4x'></i>" description="Histórico de avaliações" />
-
                     <x-navigation.options route="{{ route('settings.period') }}"
                         icon="<i class='fa-solid fa-clock fa-4x'></i>" description="Períodos da avaliação" />
 
@@ -32,6 +20,24 @@
 
                     <x-navigation.options route="{{ route('settings.questions') }}"
                         icon="<i class='fa-solid fa-list-check fa-4x'></i>" description="Cadastrar questões" />
+
+                    <x-navigation.options route="{{ route('average.supervisor') }}"
+                        icon="<i class='fa-solid fa-chart-line fa-4x'></i>" description="Médias de avaliação" />
+
+                    <x-navigation.options route="{{ route('admin.evaluation_history') }}"
+                        icon="<i class='fa-solid fa-user-clock fa-4x'></i>" description="Histórico de avaliações" />
+
+                    <x-navigation.options route="{{ route('admin.generate_feedback') }}"
+                        icon="<i class='fa-solid fa-file-pen fa-4x'></i>" description="Gerar Feedback" />
+
+                    <x-navigation.options route="{{ route('admin.feedback_history') }}"
+                        icon="<i class='fa-regular fa-calendar-days fa-4x'></i>" description="Histórico de feedbacks" />
+
+                    <x-navigation.options route="{{ route('admin.listRegionalManager') }}"
+                        icon="<i class='fa-solid fa-people-group fa-4x'></i>"
+                        description="Lista de regionais e gerentes" />
+
+
                 </div>
             @endif
             @if ($user->accessRole && $user->accessRole->supervisor === '1')
@@ -45,10 +51,10 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-3">
                     <x-navigation.options route="{{ route('admin.evaluation_history') }}"
                         icon="<i class='fa-solid fa-file-circle-check fa-4x'></i>"
-                        description="Histórico de Avaliações" />
+                        description="Histórico das avaliações" />
 
                     <x-navigation.options route="{{ route('average.supervisor') }}"
-                        icon="<i class='fa-solid fa-chart-line fa-4x'></i>" description="Notas de Avaliação" />
+                        icon="<i class='fa-solid fa-chart-line fa-4x'></i>" description="Médias de Avaliação" />
 
                     <x-navigation.options route="{{ route('admin.feedback_history') }}"
                         icon="<i class='fa-regular fa-comments fa-4x'></i>" description="Feedbacks Aplicados" />
