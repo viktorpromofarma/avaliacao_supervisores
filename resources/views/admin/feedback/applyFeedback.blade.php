@@ -41,8 +41,27 @@
                                 @endforeach
                             </div>
                         @endforeach
+
+                        {{-- Bloco "Comentários resumidos" reaproveitado da versão antiga --}}
+                        <div class="mt-4">
+                            <div class="flex items-center gap-4">
+                                <label for="qtdCmtAdicClassi_{{ $classificacaoId }}"
+                                    class="text-sm font-bold text-black">
+                                    Comentários resumidos:
+                                </label>
+                                <input type="number" id="qtdCmtAdicClassi_{{ $classificacaoId }}"
+                                    name="qtdCmtAdicClassi_{{ $classificacaoId }}" min="1" max="10"
+                                    class="w-24 p-2 border border-red-300 rounded">
+                                <button type="button" onclick="generateTextareas('{{ $classificacaoId }}')"
+                                    class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                                    Gerar
+                                </button>
+                            </div>
+                        </div>
+                        <div id="textareaContainer_{{ $classificacaoId }}" class="mt-4"></div>
                     </div>
                 @endforeach
+
 
                 <div class="mt-8 mb-8">
                     <x-aesthetic.divider name="Pontos Positivos" />

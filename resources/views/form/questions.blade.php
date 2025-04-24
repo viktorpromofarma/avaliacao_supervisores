@@ -13,7 +13,7 @@
             <div class="mt-4 mb-4">
                 <hr class="border-red-300 border-t-1">
             </div>
-            <form action="{{ route('save-answers') }}" method="POST">
+            <form action="{{ route('save-answers') }}" method="POST" id="saveForm">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 @foreach ($form_questions as $categoria)
@@ -48,6 +48,28 @@
 
         </form>
     </div>
+
+    {{-- Modal de carregamento --}}
+    <div id="loadingModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-800 bg-opacity-75">
+        <div class="p-6 text-center bg-white rounded-lg shadow-lg">
+            <div class="flex items-center justify-center mb-4 space-x-3">
+                <svg class="w-6 h-6 text-green-700 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                        stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                    </path>
+                </svg>
+                <span class="text-lg font-semibold text-gray-800">Salvando dados...</span>
+            </div>
+            <p class="text-gray-700">Por favor aguarde, estamos salvando a avaliação . Não feche esta janela.</p>
+        </div>
+    </div>
+
+
 </x-mains.app>
 
+
+
+<script src="{{ asset('js/hiddenModal.js') }}"></script>
 <script src="{{ asset('js/alertSucessError.js') }}"></script>
