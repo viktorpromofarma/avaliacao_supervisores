@@ -12,22 +12,23 @@
                     <x-inputs.label for="username" text="Usuário" class="block mb-2 text-xl font-bold text-gray-700" />
                     <x-inputs.input id="username" name="username" type="text" placeholder="{{ $users->username }}"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md " requirido="false" />
-                    <x-inputs.label for="display_name" text="Nome de exibição"
+                    <x-inputs.label for="display_name" text="Nome no sistema"
                         class="block mt-4 mb-2 text-xl font-bold text-gray-700" />
                     <x-inputs.input id="display_name" name="display_name" type="text"
                         placeholder="{{ $users->display_name }}"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md " requirido="false" />
                     <div class="mt-4">
-                        <x-inputs.label for="password" text="Sua Senha" class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.label for="password" text="Nova Senha"
+                            class="block text-xl font-bold text-gray-700" />
                         <x-inputs.input id="password" name="password" type="password" placeholder=""
                             class="w-full px-3 py-2 border border-gray-300 rounded-md " />
                     </div>
                     <!-- Senha -->
                     <div class="mt-4">
                         <x-inputs.label for="confirm_password" text="Confirme a senha"
-                            class="block font-bold text-gray-700" />
+                            class="block text-xl font-bold text-gray-700" />
                         <x-inputs.input id="confirm_password" name="confirm_password" type="password" placeholder=""
-                            class="w-full text-xl px-3 py-2 border border-gray-300 rounded-md " />
+                            class="w-full px-3 py-2 text-xl border border-gray-300 rounded-md " />
                     </div>
                 </div>
                 <!-- Campos ocultos -->

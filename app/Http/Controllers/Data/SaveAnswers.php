@@ -34,7 +34,7 @@ class SaveAnswers extends Controller
             $this->saveStatusUserAnswers($request->user_id);
             return redirect(route('home'))->with('success', 'Respostas salvas com sucesso!');
         } catch (\Throwable $th) {
-            dd($th);
+
             return back()->with('error', 'Erro ao salvar respostas!');
         }
     }

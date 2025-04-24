@@ -22,7 +22,6 @@ class Questions extends Controller
 
 
 
-
         return view(
             'settings.questions',
             [
@@ -43,6 +42,7 @@ class Questions extends Controller
                 'type_id' => $request->type_question,
                 'supervisor_geral_question' => $request->generalSupervisor,
                 'created_at' => date('d-m-Y'),
+                'active' => 'S'
             ]);
             try {
                 foreach ($request->respostas as $index => $resposta) {
@@ -64,7 +64,7 @@ class Questions extends Controller
 
     public function getCategories()
     {
-        return CategoryModel::all();
+        return CategoryModel::query()->where('active', 'S')->get();
     }
 
     public function getTypesQuestions()
@@ -75,8 +75,10 @@ class Questions extends Controller
     public function getQuestions()
     {
 
-        $questions = QuestionModel::with(['type', 'category',])->get();
-
+        $questions = QuestionModel::with(['type', 'category'])
+            ->where('active', 'S')
+            ->orderBy('category_id', 'asc')
+            ->get();
 
         $questionsWithDescriptions = $questions->map(function ($question) {
 
@@ -96,7 +98,9 @@ class Questions extends Controller
     {
 
         try {
-            QuestionModel::where('id', $id)->delete();
+            QuestionModel::where('id', $id)->update([
+                'active' => 'N'
+            ]);
             return back()->with('success', 'Questão excluida com sucesso!');
         } catch (\Throwable $th) {
             return back()->with('error', 'Erro ao excluir questão!');

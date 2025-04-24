@@ -13,7 +13,6 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
     {
 
 
-
         $metrics = $this->getMetrics($request->feedback_status_id, $request->month, $request->year);
         $user = $this->getUserData($request->feedback_status_id, $request->month, $request->year);
         $feedback = $this->getSupervisorFeedback($request->feedback_status_id, $request->month, $request->year);
@@ -22,6 +21,7 @@ class ShowFeedbackSupervisor extends FeedbackSupervisorDetails
         $positivePoints = $this->getSupervisorPositivePoints($request->feedback_status_id, $request->month, $request->year);
         $pointsToImprove = $this->getSupervisorpointsToImprove($request->feedback_status_id, $request->month, $request->year);
         $recomendations = $this->getSupervisorRecomendations($request->feedback_status_id, $request->month, $request->year);
+
 
 
 

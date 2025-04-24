@@ -66,7 +66,7 @@
                         route="{{ route('questionsRegional') }}" />
 
 
-                    @if (!$validationPeriodoAnswers)
+                    @if ($validationPeriodoAnswers)
                         <x-navigation.buttomModal action="openConfirmation()" description="Realizar Avaliação"
                             icon="<i class='fa-regular fa-pen-to-square fa-4x'></i>" />
                     @else

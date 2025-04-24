@@ -39,7 +39,7 @@ class QuestionsRegional extends Controller
 
         $form_question = $categories->map(function ($category) {
 
-            $questions = $category->questions()->where('supervisor_geral_question', 'S')->get();
+            $questions = $category->questions()->where('supervisor_geral_question', 'S')->where('active', 'S')->get();
 
 
             if ($questions->isEmpty()) {

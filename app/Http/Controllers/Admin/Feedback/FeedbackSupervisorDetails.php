@@ -101,10 +101,6 @@ class FeedbackSupervisorDetails extends Controller
     public function getPercentAnswers($feedback_id, $month, $year)
     {
 
-        $totalManagers = $this->getTotalAnswersForms($feedback_id, $month, $year);
-
-
-
         $results = StatusFeedbackSupervisor::query()
             ->join('status_user_answers as b', function ($join) {
                 $join->on('status_supervisor_feedback.user_id', '=', 'b.supervisor')
@@ -200,6 +196,7 @@ class FeedbackSupervisorDetails extends Controller
     public function getDataStructure($feedback_id, $month, $year)
     {
         $base = $this->getPercentAnswers($feedback_id, $month, $year);
+
 
 
         $comments = $this->getComments($feedback_id,    $month, $year);

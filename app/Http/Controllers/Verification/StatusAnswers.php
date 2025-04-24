@@ -18,7 +18,6 @@ class StatusAnswers extends Controller
         $user = Auth::user();
 
 
-
         if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin) {
 
             return StatusUserAnswers::query()
@@ -29,7 +28,7 @@ class StatusAnswers extends Controller
                 ->where('user_id', $user_id)
                 ->where('period.month', date('m'))
                 ->where('period.year', date('Y'))
-                ->Exists();
+                ->doesntExist();
         }
 
         if ($user->accessRole->gerentes) {

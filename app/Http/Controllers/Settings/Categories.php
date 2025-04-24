@@ -19,7 +19,8 @@ class Categories extends Controller
         try {
             CategoryModel::create([
                 'description' => $request->description,
-                'created_at' => date('d-m-Y')
+                'created_at' => date('d-m-Y'),
+                'active' => 'S'
             ]);
 
             return back()->with('success', 'Categoria cadastrada com sucesso!');
@@ -32,13 +33,14 @@ class Categories extends Controller
     {
         return CategoryModel::query()
             ->select('id', 'description')
+            ->where('active', 'S')
             ->get();
     }
 
     public function destroy($id)
     {
         try {
-            CategoryModel::find($id)->delete();
+            CategoryModel::find($id)->update(['active' => 'N']);
             return back()->with('success', 'Categoria removida com sucesso!');
         } catch (\Throwable $th) {
             return back()->with('error', 'Erro ao remover categoria!');

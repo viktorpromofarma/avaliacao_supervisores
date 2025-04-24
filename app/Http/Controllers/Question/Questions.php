@@ -28,7 +28,7 @@ class Questions extends Controller
 
     public function getCategories()
     {
-        return CategoryModel::all();
+        return CategoryModel::query()->where('active', 'S')->get();
     }
 
     public function getAnswers($questionId)
@@ -44,7 +44,9 @@ class Questions extends Controller
 
         $form_question = $categories->map(function ($category) use ($regional) {
 
-            $questions = $category->questions()->where('supervisor_geral_question', $regional ? 'S' : 'N')->get();
+            $questions = $category->questions()->where('supervisor_geral_question', $regional ? 'S' : 'N')->where('active', 'S')->get();
+
+
 
 
             if ($questions->isEmpty()) {

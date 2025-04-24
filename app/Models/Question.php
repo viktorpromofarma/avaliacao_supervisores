@@ -14,7 +14,8 @@ class Question extends Model
         'type_id',
         'supervisor_geral_question',
         'category_id',
-        'created_at'
+        'created_at',
+        'active'
     ];
 
     public function category()
