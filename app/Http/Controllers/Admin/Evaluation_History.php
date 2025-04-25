@@ -23,7 +23,7 @@ class Evaluation_History extends Controller
     public function index(Request $request)
     {
 
-        $filters = $request->only(['month', 'year', 'storeStart', 'storeEnd', 'manager', 'supervisor']);
+        $filters = $request->only(['inicial', 'final', 'storeStart', 'storeEnd', 'manager', 'supervisor']);
         $statusUser = $this->getStatusUser($filters);
 
         return view('admin.evaluation_history', [
@@ -55,12 +55,9 @@ class Evaluation_History extends Controller
                 'c.seller as supervisor_register'
             );
 
-        if (!empty($filters['month'])) {
-            $query->where('status_user_answers.month', $filters['month']);
-        }
-
-        if (!empty($filters['year'])) {
-            $query->where('status_user_answers.year', $filters['year']);
+        if (!empty($filters['inicial']) && !empty($filters['final'])) {
+            $query->where('status_user_answers.created_at', '>=',  date('d/m/Y', strtotime($filters['inicial'])))
+                ->where('status_user_answers.created_at', '<=', date('d/m/Y', strtotime($filters['final'])));
         }
 
         if (!empty($filters['storeStart']) && !empty($filters['storeEnd'])) {

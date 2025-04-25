@@ -20,6 +20,7 @@ class SaveAnswers extends Controller
 
 
 
+
         $categories = $this->getQuestionsCategories();
         $data = $request->except(['_token', 'user_id']);
 

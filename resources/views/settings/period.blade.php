@@ -10,15 +10,19 @@
                 <legend class="text-2xl font-bold">Cadastrar Períodos</legend>
                 <div class="grid grid-cols-1 gap-4">
                     <div>
-                        <x-inputs.label for="mes" text="Mês" class="block font-bold text-gray-700" />
-                        <x-inputs.select id="mes" name="mes"
-                            class="w-full p-2 border border-gray-300 rounded" />
+                        <x-inputs.label for="inicial" text="Data Inicial"
+                            class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.input id="inicial" name="inicial" type="date" placeholder=""
+                            class="w-full p-2 border border-gray-300 rounded " />
                     </div>
                     <div class="mb-6">
-                        <x-inputs.label for="ano" text="Ano" class="block font-bold text-gray-700" />
-                        <x-inputs.select id="ano" name="ano"
-                            class="w-full p-2 border border-gray-300 rounded" />
+                        <x-inputs.label for="final" text="Data Final"
+                            class="block text-xl font-bold text-gray-700" />
+                        <x-inputs.input id="final" name="final" type="date" placeholder=""
+                            class="w-full p-2 border border-gray-300 rounded " />
                     </div>
+
+
                 </div>
                 <div class="flex justify-center">
                     <button type="submit"
@@ -34,8 +38,7 @@
                 <table class="w-full text-center ">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-4 py-2">Mês</th>
-                            <th class="px-4 py-2">Ano</th>
+
                             <th class="px-4 py-2">Primeiro Dia</th>
                             <th class="px-4 py-2">Último Dia</th>
                             <th class="px-4 py-2">Excluir</th>
@@ -44,8 +47,7 @@
                     <tbody>
                         @foreach ($periods as $period)
                             <tr>
-                                <td class="px-4 py-2">{{ $period['month'] }}</td>
-                                <td class="px-4 py-2">{{ $period['year'] }}</td>
+
                                 <td class="px-4 py-2">{{ $period['start'] }}</td>
                                 <td class="px-4 py-2">{{ $period['end'] }}</td>
                                 <td class="px-4 py-2">

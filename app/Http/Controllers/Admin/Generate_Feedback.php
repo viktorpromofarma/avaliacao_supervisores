@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\StatusUserAnswers;
-use Termwind\Components\Dd;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class Generate_Feedback extends Controller
 {
@@ -31,7 +31,8 @@ class Generate_Feedback extends Controller
                 'status_user_answers.year',
                 'status_user_answers.supervisor',
                 'b.display_name as supervisor_name',
-                'c.id as feedback_id'
+                'c.id as feedback_id',
+                DB::raw("CONVERT(varchar(20), CAST(status_user_answers.created_at AS date), 103) as data_registro")
             )->distinct()
             ->orderBy('status_user_answers.month', 'asc')
             ->orderBy('status_user_answers.year', 'asc');

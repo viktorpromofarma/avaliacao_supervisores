@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Feedback;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\StatusFeedbackSupervisor;
-use App\Http\Controllers\Basic\UserData;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Basic\UserData;
+use App\Models\StatusFeedbackSupervisor;
 
 class Feedback_History extends Controller
 {
     public function index(Request $request)
     {
-        $filters = $request->only(['month', 'year',  'supervisor']);
+        $filters = $request->only(['inicial', 'final',  'supervisor']);
         $feedbacks = $this->listFeedbacks($filters);
 
 
@@ -39,19 +40,16 @@ class Feedback_History extends Controller
                 'status_supervisor_feedback.id',
                 'status_supervisor_feedback.month',
                 'status_supervisor_feedback.year',
-                'status_supervisor_feedback.created_at'
+                'status_supervisor_feedback.created_at',
+                DB::raw("CONVERT(varchar(20), CAST(status_supervisor_feedback.created_at AS date), 103) as data_registro")
 
             );
 
-
-
-        if (!empty($filters['month'])) {
-            $query->where('status_supervisor_feedback.month', $filters['month']);
+        if (!empty($filters['inicial']) && !empty($filters['final'])) {
+            $query->where('status_supervisor_feedback.created_at', '>=',  date('d/m/Y', strtotime($filters['inicial'])))
+                ->where('status_supervisor_feedback.created_at', '<=', date('d/m/Y', strtotime($filters['final'])));
         }
 
-        if (!empty($filters['year'])) {
-            $query->where('status_supervisor_feedback.year', $filters['year']);
-        }
 
         if (!empty($filters['supervisor'])) {
             $query->where(function ($q) use ($filters) {

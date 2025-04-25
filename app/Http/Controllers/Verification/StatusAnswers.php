@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Verification;
 
-use App\Http\Controllers\Controller;
-use App\Models\StatusUserAnswers;
 use App\Models\Period;
 use App\Models\Sellers;
+use App\Models\StatusUserAnswers;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -20,14 +21,13 @@ class StatusAnswers extends Controller
 
         if ($user->accessRole->supervisor || $user->accessRole->regional || $user->accessRole->admin) {
 
-            return StatusUserAnswers::query()
-                ->join('period', function ($join) {
-                    $join->on('status_user_answers.month', '=', 'period.month')
-                        ->on('status_user_answers.year', '=', 'period.year');
-                })
+            return  StatusUserAnswers::query()
                 ->where('user_id', $user_id)
-                ->where('period.month', date('m'))
-                ->where('period.year', date('Y'))
+                ->whereExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('period')
+                        ->whereRaw('status_user_answers.created_at BETWEEN [start] AND [end]');
+                })
                 ->doesntExist();
         }
 
@@ -40,15 +40,13 @@ class StatusAnswers extends Controller
                 ->leftjoin('status_user_answers as c', function ($join) {
                     $join->on('b.id', '=', 'c.user_id')
                         ->on('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.loja', '=', 'c.store')
-                        ->where('c.month', date('m'))
-                        ->where('c.year', date('Y'));
+                        ->whereExists(function ($query) {
+                            $query->select(DB::raw(1))
+                                ->from('period')
+                                ->whereRaw('c.created_at BETWEEN [start] AND [end]');
+                        });
                 })
-                ->leftjoin('period as d', function ($join) {
-                    $join->on('c.month', '=', 'd.month')
-                        ->on('c.year', '=', 'd.year')
-                        ->where('d.month', date('m'))
-                        ->where('d.year', date('Y'));
-                })->where('b.id', $user_id)
+                ->where('b.id', $user_id)
                 ->whereNull('c.id')
                 ->select('PBS_PROMOFARMA_DADOS.dbo.VW_HISTORICO_GERENTES.SUPERVISOR', 'NOME_SUPERVISOR', 'GERENTE_ATUAL', 'NOME', 'LOJA')->get();
         }

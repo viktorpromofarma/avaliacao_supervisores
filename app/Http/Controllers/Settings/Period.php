@@ -17,25 +17,24 @@ class Period extends Controller
 
     public function store(Request $request)
     {
-        $mes = $request->mes;
-        $ano = $request->ano;
-
-        $primeiroDia = new \DateTime("$ano-$mes-01");
-        $ultimoDia = new \DateTime("$ano-$mes-01");
-        $ultimoDia->modify('last day of this month');
+        $primeiroDia = $request->inicial;
+        $ultimoDia = $request->final;
+        $mes = date('m', strtotime($ultimoDia));
+        $ano = date('Y', strtotime($ultimoDia));
 
         try {
             PeriodModel::create([
                 'month' => $mes,
                 'year' => $ano,
-                'start' => $primeiroDia->format('d-m-Y'),
-                'end' => $ultimoDia->format('d-m-Y'),
+                'start' => $primeiroDia,
+                'end' => $ultimoDia,
                 'created_at' => date('d-m-Y')
 
             ]);
 
             return back()->with('success', 'Período cadastrado com sucesso!');
         } catch (\Throwable $th) {
+            dd($th);
             return back()->with('error', 'Erro ao cadastrar período!');
         }
     }

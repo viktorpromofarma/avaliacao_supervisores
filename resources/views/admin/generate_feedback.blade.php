@@ -23,8 +23,8 @@
                             @foreach ($supervisors as $supervisor)
                                 <tr class="border-b">
                                     <td class="px-4 py-2 font-semibold">{{ $supervisor['supervisor_name'] }}</td>
-                                    <td class="px-4 py-2 font-semibold">
-                                        {{ $supervisor['month'] }}/{{ $supervisor['year'] }}</td>
+                                    <td class="px-4 py-2 font-semibold">{{ $supervisor->data_registro }}</td>
+
                                     <td class="px-4 py-2">
                                         @if (is_null($supervisor['feedback_id']))
                                             <form action="{{ route('feedback.apply') }}" method="POST">

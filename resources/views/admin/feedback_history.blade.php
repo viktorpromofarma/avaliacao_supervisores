@@ -5,15 +5,15 @@
         <x-filters.filterHistory route="{{ route('admin.feedback_history') }}" title="Histórico de Feedbacks">
             <x-slot name="slot">
 
-                <div class="flex flex-row space-x-4">
+                <div class="flex flex-row mb-2">
                     <div class="flex-1">
-                        <x-inputs.label for="month" text="Mês" class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.input id="month" name="month" type="number" placeholder=""
+                        <x-inputs.label for="inicial" text="Data Inicial" class="block font-bold text-gray-700 text-md" />
+                        <x-inputs.input id="inicial" name="inicial" type="date" placeholder=""
                             class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
-                    </div>
-                    <div class="flex-1">
-                        <x-inputs.label for="year" text="Ano" class="block font-bold text-gray-700 text-md" />
-                        <x-inputs.input id="year" name="year" type="number" placeholder=""
+
+                        <x-inputs.label for="final" text="Data Final"
+                            class="block font-bold text-gray-700 text-md" />
+                        <x-inputs.input id="final" name="final" type="date" placeholder=""
                             class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md" />
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                 @foreach ($feedbacks as $feedbacks)
                                     <tr class="font-bold text-center">
                                         <td class="px-4 py-2 text-center">{{ $feedbacks->display_name }}</td>
-                                        <td class="px-4 py-2 text-center">{{ $feedbacks->month }}/{{ $feedbacks->year }}
+                                        <td class="px-4 py-2">{{ $feedbacks->data_registro }}</td>
                                         <td class="px-4 py-2 ">
                                             <form action="{{ route('feedback.show') }}" method="POST">
                                                 @csrf

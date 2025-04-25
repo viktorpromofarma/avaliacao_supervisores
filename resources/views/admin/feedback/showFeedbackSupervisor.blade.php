@@ -12,8 +12,7 @@
                         <h1 class="font-bold text-md">Regional: <span
                                 class="text-red-500">{{ $user->display_name }}</span>
                         </h1>
-                        <h1 class="font-bold text-md">Período de avaliação: <span
-                                class="text-red-500">{{ $feedback->month }}/{{ $feedback->year }}</span></h1>
+
                         <h1 class="font-bold text-md">
                             Data de avaliação:
                             <span
