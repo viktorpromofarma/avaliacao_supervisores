@@ -44,7 +44,7 @@
                 <div class="mt-2 text-center">
                     <div class="relative group">
                         <!-- Link com o texto "Esqueceu a senha?" -->
-                        <a href="http://app.promofarma.int/helpdesk/" class="font-bold text-red-500" target="_blank">
+                        <a href="http://helpdesk.promofarma.int/" class="font-bold text-red-500" target="_blank">
                             Esqueceu a senha ?
                         </a>
                         <!-- Tooltip que aparece ao passar o mouse -->
