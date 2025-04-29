@@ -120,6 +120,13 @@ class CreateAccount extends VerifyUsers
                     'supervisor' => false,
                     'regional' => false,
                     'gerentes' => false,
+                ],
+                "6349" => [
+                    'admin' => true,
+                    'root' => false,
+                    'supervisor' => false,
+                    'regional' => false,
+                    'gerentes' => false,
                 ]
             };
         }

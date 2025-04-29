@@ -45,7 +45,7 @@ class VerifyUsers extends Controller
     public function getSellerProcfit($seller)
     {
         return  SellersProcfit::where((DB::raw('cast(matricula AS CHAR)')), $seller)
-            ->whereIn('matricula', [3082, 4971, 2446])
+            ->whereIn('matricula', [3082, 4971, 2446, 6349])
             ->Exists();
     }
     public function getSeller($seller)
