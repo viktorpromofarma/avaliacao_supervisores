@@ -12,15 +12,26 @@ class HomeController extends Controller
 
     public function index()
     {
-        $validationPeriodoAnswers = $this->validationPeriodoAnswers();
+
+        $period = $this->getPeriod();
+
+        if ($period == null) {
 
 
+            return view('home', [
+                'user' => Auth::user(),
+                'validationPeriodoAnswers' => true
+            ]);
+        } else {
 
-        return view('home', [
-            'user' => Auth::user(),
-            'validationPeriodoAnswers' => $validationPeriodoAnswers
 
-        ]);
+            $validationPeriodoAnswers = $this->validationPeriodoAnswers();
+
+            return view('home', [
+                'user' => Auth::user(),
+                'validationPeriodoAnswers' => $validationPeriodoAnswers
+            ]);
+        }
     }
 
     public function getUserAnswersStatus($user_id)
@@ -45,6 +56,12 @@ class HomeController extends Controller
         if ($user->accessRole->gerentes) {
 
             $statusAnswers = $this->getUserAnswersStatus(Auth::user()->id)->first();
+
+            if ($statusAnswers) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
 
