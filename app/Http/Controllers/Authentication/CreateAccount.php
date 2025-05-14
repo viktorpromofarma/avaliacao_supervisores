@@ -73,14 +73,13 @@ class CreateAccount extends VerifyUsers
     {
         $user = User::where('seller', $seller)->first();
 
-
         $user_id = $user->id;
 
         $supervisor = Sellers::where(DB::raw('CAST(supervisor AS CHAR)'), $seller)->first();
         $gerente = Sellers::where('gerente_atual', '=', $seller)->first();
 
 
-
+        dd($user);
 
         if ($supervisor) {
             $data = [
@@ -89,6 +88,7 @@ class CreateAccount extends VerifyUsers
                 'supervisor' => false,
                 'regional' => true,
                 'gerentes' => false,
+                'operator' => false
             ];
         } elseif ($gerente) {
             $data = [
@@ -97,6 +97,7 @@ class CreateAccount extends VerifyUsers
                 'supervisor' => false,
                 'regional' => false,
                 'gerentes' => true,
+                'operator' => false
             ];
         } else {
             $data = match ($seller) {
@@ -106,6 +107,7 @@ class CreateAccount extends VerifyUsers
                     'supervisor' => false,
                     'regional' => false,
                     'gerentes' => false,
+                    'operator' => false
                 ],
                 "2446" => [
                     'admin' => false,
@@ -113,6 +115,7 @@ class CreateAccount extends VerifyUsers
                     'supervisor' => true,
                     'regional' => false,
                     'gerentes' => false,
+                    'operator' => false
                 ],
                 "3082" => [
                     'admin' => false,
@@ -120,6 +123,7 @@ class CreateAccount extends VerifyUsers
                     'supervisor' => false,
                     'regional' => false,
                     'gerentes' => false,
+                    'operator' => false
                 ],
                 "6349" => [
                     'admin' => true,
@@ -127,6 +131,7 @@ class CreateAccount extends VerifyUsers
                     'supervisor' => false,
                     'regional' => false,
                     'gerentes' => false,
+                    'operator' => false
                 ]
             };
         }

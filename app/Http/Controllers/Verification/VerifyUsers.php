@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Verification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Sellers;
 use App\Models\User;
 use App\Models\SellersProcfit;
@@ -18,6 +17,8 @@ class VerifyUsers extends Controller
         $getUser = $this->getUser($seller);
         $getSellerProcfit = $this->getSellerProcfit($seller);
         $getSeller = $this->getSeller($seller);
+
+
 
 
         if ($getUser == false) {
@@ -40,6 +41,8 @@ class VerifyUsers extends Controller
     public function getUser($seller)
     {
         return User::where('username', $seller)
+            ->leftJoin('access_roles', 'access_roles.user_id', '=', 'usuarios_avaliacao_supervisao.id')
+            ->where('access_roles.operator', '<>', 1)
             ->Exists();
     }
     public function getSellerProcfit($seller)
@@ -56,5 +59,13 @@ class VerifyUsers extends Controller
             ->Exists();
 
         return $general;
+    }
+
+    public function getOperator($seller)
+    {
+        return User::where('username', $seller)
+            ->leftJoin('access_roles', 'access_roles.user_id', '=', 'usuarios_avaliacao_supervisao.id')
+            ->where('access_roles.operator', 1)
+            ->Exists();
     }
 }

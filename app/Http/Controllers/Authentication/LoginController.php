@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Authentication;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Verification\VerifyUsers;
+use App\Http\Controllers\Authentication\VerifySeller;
 
 class loginController extends Controller
 {
@@ -26,24 +28,30 @@ class loginController extends Controller
 
         $verifySeller = $this->VerifySeller($credentials['username']);
 
-
-
-
         if ($verifySeller == true && $credentials['password'] == 'promofarma') {
             return redirect()->route('first-access', ['id' => $credentials['username']]);
         }
 
-        $user = User::where('username', $credentials['username'])->first();
+        $operator = $this->getOperator($credentials['username']);
 
-        if (!$user || !Hash::check($credentials['password'], $user->password) || $user->active == 'N') {
-
+        if ($operator == true) {
             return back()->with('error', 'Usuário ou senha inválidos');
-        }
+        } else {
 
-        Auth::login($user);
-        $request->session()->regenerate();
-        session(['username' => $user->username]);
-        return redirect('home');
+
+            $user = User::where('username', $credentials['username'])->first();
+
+
+            if (!$user || !Hash::check($credentials['password'], $user->password) || $user->active == 'N') {
+
+                return back()->with('error', 'Usuário ou senha inválidos');
+            }
+
+            Auth::login($user);
+            $request->session()->regenerate();
+            session(['username' => $user->username]);
+            return redirect('home');
+        }
     }
 
     public function logout(Request $request)
@@ -59,5 +67,10 @@ class loginController extends Controller
     public function VerifySeller($seller)
     {
         return (new VerifySeller())->getRegister($seller);
+    }
+
+    public function getOperator($seller)
+    {
+        return (new VerifyUsers())->getOperator($seller);
     }
 }

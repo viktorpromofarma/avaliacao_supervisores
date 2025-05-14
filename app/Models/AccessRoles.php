@@ -15,6 +15,7 @@ class AccessRoles extends Model
         'supervisor',
         'regional',
         'gerentes',
+        'operator',
         'created_at'
     ];
 
