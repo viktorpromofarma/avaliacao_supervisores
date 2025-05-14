@@ -5,8 +5,7 @@ namespace App\Http\Controllers\History;
 use Illuminate\Http\Request;
 use App\Models\StatusUserAnswers;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Database\Capsule\Manager;
+
 use App\Http\Controllers\History\ManagerReview;
 
 class FilteredManagerReview extends ManagerReview

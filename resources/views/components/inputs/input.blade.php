@@ -4,9 +4,9 @@
     'type' => 'text',
     'placeholder' => null,
     'class' => null,
-    'requirido' => false,
+    'requirido' => null,
     'value' => null,
 ])
 
 <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}" placeholder="{{ $placeholder }}"
-    class="{{ $class }}" {{ $requirido === true ? 'required' : '' }} value="{{ $value }}">
+    class="{{ $class }}" {{ $requirido == true ? 'required' : '' }} value="{{ $value }}">

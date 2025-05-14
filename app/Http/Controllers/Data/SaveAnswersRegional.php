@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Data;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Sellers;
+
 use Illuminate\Http\Request;
 use App\Models\SaveUserAnswers;
 use App\Models\StatusUserAnswers;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\History\Reviews;
-use App\Http\Controllers\Verification\StatusAnswers;
+
 use App\Http\Controllers\Data\SaveAnswers;
 
 

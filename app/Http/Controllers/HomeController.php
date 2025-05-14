@@ -64,9 +64,7 @@ class HomeController extends Controller
             }
         }
 
-
-
-        $statusPeriod = $this->getPeriod()->where('year', date('Y'))->where('month', date('m'))->first();
+        $statusPeriod = $this->getPeriod()->first();
 
         if ($statusPeriod == null) {
             return null;

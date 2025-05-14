@@ -13,13 +13,13 @@
                         <x-inputs.label for="inicial" text="Data Inicial"
                             class="block text-xl font-bold text-gray-700" />
                         <x-inputs.input id="inicial" name="inicial" type="date" placeholder=""
-                            class="w-full p-2 border border-gray-300 rounded " />
+                            class="w-full p-2 border border-gray-300 rounded " requirido="true" />
                     </div>
                     <div class="mb-6">
                         <x-inputs.label for="final" text="Data Final"
                             class="block text-xl font-bold text-gray-700" />
                         <x-inputs.input id="final" name="final" type="date" placeholder=""
-                            class="w-full p-2 border border-gray-300 rounded " />
+                            class="w-full p-2 border border-gray-300 rounded " requirido="true" />
                     </div>
 
 
